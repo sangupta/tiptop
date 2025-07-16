@@ -162,6 +162,40 @@ body {
   margin-bottom: 0;
 }
 
+/* Text alignment styles */
+.tiptop-editor-content [data-text-align="left"] {
+  text-align: left;
+}
+
+.tiptop-editor-content [data-text-align="center"] {
+  text-align: center;
+}
+
+.tiptop-editor-content [data-text-align="right"] {
+  text-align: right;
+}
+
+.tiptop-editor-content [data-text-align="justify"] {
+  text-align: justify;
+}
+
+/* Alternative alignment styles using style attribute */
+.tiptop-editor-content p[style*="text-align: left"] {
+  text-align: left !important;
+}
+
+.tiptop-editor-content p[style*="text-align: center"] {
+  text-align: center !important;
+}
+
+.tiptop-editor-content p[style*="text-align: right"] {
+  text-align: right !important;
+}
+
+.tiptop-editor-content p[style*="text-align: justify"] {
+  text-align: justify !important;
+}
+
 /* Utility styles */
 .tiptop-fade-in {
   animation: fadeIn 0.2s ease-in-out;

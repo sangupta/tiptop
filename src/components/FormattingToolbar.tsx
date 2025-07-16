@@ -137,6 +137,37 @@ export const FormattingToolbar = ({ editor, className = '' }: FormattingToolbarP
     },
   ];
 
+  const alignmentButtons = [
+    {
+      icon: <AlignLeft size={16} />,
+      title: 'Align Left',
+      action: () => editor.chain().focus().setTextAlign('left').run(),
+      isActive: () => editor.isActive({ textAlign: 'left' }),
+      canExecute: () => editor.can().setTextAlign('left'),
+    },
+    {
+      icon: <AlignCenter size={16} />,
+      title: 'Align Center',
+      action: () => editor.chain().focus().setTextAlign('center').run(),
+      isActive: () => editor.isActive({ textAlign: 'center' }),
+      canExecute: () => editor.can().setTextAlign('center'),
+    },
+    {
+      icon: <AlignRight size={16} />,
+      title: 'Align Right',
+      action: () => editor.chain().focus().setTextAlign('right').run(),
+      isActive: () => editor.isActive({ textAlign: 'right' }),
+      canExecute: () => editor.can().setTextAlign('right'),
+    },
+    {
+      icon: <AlignJustify size={16} />,
+      title: 'Justify',
+      action: () => editor.chain().focus().setTextAlign('justify').run(),
+      isActive: () => editor.isActive({ textAlign: 'justify' }),
+      canExecute: () => editor.can().setTextAlign('justify'),
+    },
+  ];
+
   const handleTextColorChange = (color: string) => {
     if (color) {
       editor.chain().focus().setColor(color).run();
@@ -226,6 +257,24 @@ export const FormattingToolbar = ({ editor, className = '' }: FormattingToolbarP
       {/* Indent buttons */}
       <div className="flex items-center gap-1">
         {indentButtons.map((button) => (
+          <ToolbarButton
+            key={button.title}
+            onClick={button.action}
+            isActive={button.isActive()}
+            disabled={!button.canExecute()}
+            title={button.title}
+          >
+            {button.icon}
+          </ToolbarButton>
+        ))}
+      </div>
+
+      {/* Separator */}
+      <div className="w-px h-6 bg-gray-300 dark:bg-gray-600" />
+
+      {/* Alignment buttons */}
+      <div className="flex items-center gap-1">
+        {alignmentButtons.map((button) => (
           <ToolbarButton
             key={button.title}
             onClick={button.action}
