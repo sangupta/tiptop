@@ -5,7 +5,11 @@ import {
   Underline, 
   Strikethrough, 
   Subscript, 
-  Superscript 
+  Superscript,
+  List,
+  ListOrdered,
+  Indent,
+  Outdent
 } from 'lucide-preact';
 import { ColorPicker } from './ColorPicker';
 import { FontSelector } from './FontSelector';
@@ -56,42 +60,76 @@ export const FormattingToolbar = ({ editor, className = '' }: FormattingToolbarP
       title: 'Bold',
       action: () => editor.chain().focus().toggleBold().run(),
       isActive: () => editor.isActive('bold'),
-      canExecute: () => editor.can().chain().focus().toggleBold().run(),
+      canExecute: () => editor.can().toggleBold(),
     },
     {
       icon: <Italic size={16} />,
       title: 'Italic',
       action: () => editor.chain().focus().toggleItalic().run(),
       isActive: () => editor.isActive('italic'),
-      canExecute: () => editor.can().chain().focus().toggleItalic().run(),
+      canExecute: () => editor.can().toggleItalic(),
     },
     {
       icon: <Underline size={16} />,
       title: 'Underline',
       action: () => editor.chain().focus().toggleUnderline().run(),
       isActive: () => editor.isActive('underline'),
-      canExecute: () => editor.can().chain().focus().toggleUnderline().run(),
+      canExecute: () => editor.can().toggleUnderline(),
     },
     {
       icon: <Strikethrough size={16} />,
       title: 'Strike',
       action: () => editor.chain().focus().toggleStrike().run(),
       isActive: () => editor.isActive('strike'),
-      canExecute: () => editor.can().chain().focus().toggleStrike().run(),
+      canExecute: () => editor.can().toggleStrike(),
     },
     {
       icon: <Subscript size={16} />,
       title: 'Subscript',
       action: () => editor.chain().focus().toggleSubscript().run(),
       isActive: () => editor.isActive('subscript'),
-      canExecute: () => editor.can().chain().focus().toggleSubscript().run(),
+      canExecute: () => editor.can().toggleSubscript(),
     },
     {
       icon: <Superscript size={16} />,
       title: 'Superscript',
       action: () => editor.chain().focus().toggleSuperscript().run(),
       isActive: () => editor.isActive('superscript'),
-      canExecute: () => editor.can().chain().focus().toggleSuperscript().run(),
+      canExecute: () => editor.can().toggleSuperscript(),
+    },
+  ];
+
+  const listButtons = [
+    {
+      icon: <List size={16} />,
+      title: 'Bullet List',
+      action: () => editor.chain().focus().toggleBulletList().run(),
+      isActive: () => editor.isActive('bulletList'),
+      canExecute: () => editor.can().toggleBulletList(),
+    },
+    {
+      icon: <ListOrdered size={16} />,
+      title: 'Ordered List',
+      action: () => editor.chain().focus().toggleOrderedList().run(),
+      isActive: () => editor.isActive('orderedList'),
+      canExecute: () => editor.can().toggleOrderedList(),
+    },
+  ];
+
+  const indentButtons = [
+    {
+      icon: <Indent size={16} />,
+      title: 'Indent',
+      action: () => editor.chain().focus().sinkListItem('listItem').run(),
+      isActive: () => false, // Indent buttons don't have active state
+      canExecute: () => editor.can().sinkListItem('listItem'),
+    },
+    {
+      icon: <Outdent size={16} />,
+      title: 'Outdent',
+      action: () => editor.chain().focus().liftListItem('listItem').run(),
+      isActive: () => false, // Indent buttons don't have active state
+      canExecute: () => editor.can().liftListItem('listItem'),
     },
   ];
 
@@ -115,7 +153,7 @@ export const FormattingToolbar = ({ editor, className = '' }: FormattingToolbarP
     if (fontFamily) {
       editor.chain().focus().setMark('textStyle', { fontFamily }).run();
     } else {
-      editor.chain().focus().unsetMark('textStyle', { fontFamily: null }).run();
+      editor.chain().focus().unsetMark('textStyle').run();
     }
   };
 
@@ -123,7 +161,7 @@ export const FormattingToolbar = ({ editor, className = '' }: FormattingToolbarP
     if (fontSize) {
       editor.chain().focus().setMark('textStyle', { fontSize }).run();
     } else {
-      editor.chain().focus().unsetMark('textStyle', { fontSize: null }).run();
+      editor.chain().focus().unsetMark('textStyle').run();
     }
   };
 
@@ -151,6 +189,39 @@ export const FormattingToolbar = ({ editor, className = '' }: FormattingToolbarP
       {/* Basic formatting buttons */}
       <div className="flex items-center gap-1">
         {formatButtons.map((button) => (
+          <ToolbarButton
+            key={button.title}
+            onClick={button.action}
+            isActive={button.isActive()}
+            disabled={!button.canExecute()}
+            title={button.title}
+          >
+            {button.icon}
+          </ToolbarButton>
+        ))}
+      </div>
+
+      {/* Separator */}
+      <div className="w-px h-6 bg-gray-300 dark:bg-gray-600" />
+
+      {/* List buttons */}
+      <div className="flex items-center gap-1">
+        {listButtons.map((button) => (
+          <ToolbarButton
+            key={button.title}
+            onClick={button.action}
+            isActive={button.isActive()}
+            disabled={!button.canExecute()}
+            title={button.title}
+          >
+            {button.icon}
+          </ToolbarButton>
+        ))}
+      </div>
+
+      {/* Indent buttons */}
+      <div className="flex items-center gap-1">
+        {indentButtons.map((button) => (
           <ToolbarButton
             key={button.title}
             onClick={button.action}

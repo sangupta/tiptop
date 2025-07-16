@@ -1,4 +1,7 @@
-// Extension exports - will be populated in subsequent tasks
-
-// Placeholder to make this a valid module
-export const EXTENSIONS_PLACEHOLDER = true;
+// Extension exports
+export { 
+  EnhancedBulletList, 
+  EnhancedOrderedList, 
+  EnhancedListItem, 
+  ListUtilities 
+} from './ListExtensions';

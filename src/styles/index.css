@@ -47,6 +47,58 @@
   .tiptop-toolbar-button.active {
     @apply bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300;
   }
+
+  /* List styles */
+  .tiptop-bullet-list {
+    @apply list-disc pl-6 mb-3 last:mb-0;
+  }
+
+  .tiptop-ordered-list {
+    @apply list-decimal pl-6 mb-3 last:mb-0;
+  }
+
+  .tiptop-list-item {
+    @apply mb-1 last:mb-0;
+  }
+
+  .tiptop-list-item p {
+    @apply mb-0;
+  }
+
+  /* Nested list styles with proper indentation */
+  .tiptop-bullet-list .tiptop-bullet-list {
+    @apply list-disc mb-1 mt-1;
+    list-style-type: circle;
+  }
+
+  .tiptop-ordered-list .tiptop-ordered-list {
+    @apply list-decimal mb-1 mt-1;
+    list-style-type: lower-alpha;
+  }
+
+  .tiptop-bullet-list .tiptop-ordered-list {
+    @apply list-decimal mb-1 mt-1;
+  }
+
+  .tiptop-ordered-list .tiptop-bullet-list {
+    @apply list-disc mb-1 mt-1;
+    list-style-type: circle;
+  }
+
+  /* Third level nesting */
+  .tiptop-bullet-list .tiptop-bullet-list .tiptop-bullet-list {
+    list-style-type: square;
+  }
+
+  .tiptop-ordered-list .tiptop-ordered-list .tiptop-ordered-list {
+    list-style-type: lower-roman;
+  }
+
+  /* Ensure proper spacing for nested lists */
+  .tiptop-list-item > .tiptop-bullet-list,
+  .tiptop-list-item > .tiptop-ordered-list {
+    @apply mt-1 mb-0;
+  }
 }
 
 /* Utility styles */

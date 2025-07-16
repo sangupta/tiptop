@@ -11,6 +11,10 @@ vi.mock('lucide-preact', () => ({
   Strikethrough: () => <span data-testid="strikethrough-icon">Strikethrough</span>,
   Subscript: () => <span data-testid="subscript-icon">Subscript</span>,
   Superscript: () => <span data-testid="superscript-icon">Superscript</span>,
+  List: () => <span data-testid="list-icon">List</span>,
+  ListOrdered: () => <span data-testid="list-ordered-icon">ListOrdered</span>,
+  Indent: () => <span data-testid="indent-icon">Indent</span>,
+  Outdent: () => <span data-testid="outdent-icon">Outdent</span>,
   Palette: () => <span data-testid="palette-icon">Palette</span>,
   ChevronDown: () => <span data-testid="chevron-down-icon">ChevronDown</span>,
   Type: () => <span data-testid="type-icon">Type</span>,
@@ -53,26 +57,35 @@ describe('FormattingToolbar', () => {
       toggleStrike: vi.fn().mockReturnThis(),
       toggleSubscript: vi.fn().mockReturnThis(),
       toggleSuperscript: vi.fn().mockReturnThis(),
+      toggleBulletList: vi.fn().mockReturnThis(),
+      toggleOrderedList: vi.fn().mockReturnThis(),
+      sinkListItem: vi.fn().mockReturnThis(),
+      liftListItem: vi.fn().mockReturnThis(),
       setColor: vi.fn().mockReturnThis(),
       unsetColor: vi.fn().mockReturnThis(),
       setHighlight: vi.fn().mockReturnThis(),
       unsetHighlight: vi.fn().mockReturnThis(),
-
       setMark: vi.fn().mockReturnThis(),
       unsetMark: vi.fn().mockReturnThis(),
       run: vi.fn(() => true),
     };
 
-    const mockCanChain = {
-      ...mockChain,
-      run: vi.fn(() => true),
-    };
+
 
     mockEditor = {
       chain: vi.fn(() => mockChain),
       can: vi.fn(() => ({
-        chain: vi.fn(() => mockCanChain),
-      })),
+        toggleBold: vi.fn(() => true),
+        toggleItalic: vi.fn(() => true),
+        toggleUnderline: vi.fn(() => true),
+        toggleStrike: vi.fn(() => true),
+        toggleSubscript: vi.fn(() => true),
+        toggleSuperscript: vi.fn(() => true),
+        toggleBulletList: vi.fn(() => true),
+        toggleOrderedList: vi.fn(() => true),
+        sinkListItem: vi.fn(() => true),
+        liftListItem: vi.fn(() => true),
+      })) as any,
       isActive: vi.fn((format: string) => {
         // Mock some formats as active for testing
         return format === 'bold' || format === 'italic';
@@ -114,6 +127,8 @@ describe('FormattingToolbar', () => {
     expect(screen.getByTestId('toolbar-strike')).toBeInTheDocument();
     expect(screen.getByTestId('toolbar-subscript')).toBeInTheDocument();
     expect(screen.getByTestId('toolbar-superscript')).toBeInTheDocument();
+    expect(screen.getByTestId('toolbar-bullet-list')).toBeInTheDocument();
+    expect(screen.getByTestId('toolbar-ordered-list')).toBeInTheDocument();
   });
 
   it('applies active state to buttons correctly', () => {
@@ -201,16 +216,44 @@ describe('FormattingToolbar', () => {
     expect(mockChain.run).toHaveBeenCalled();
   });
 
+  it('handles bullet list button click', () => {
+    render(<FormattingToolbar editor={mockEditor as Editor} />);
+    
+    const bulletListButton = screen.getByTestId('toolbar-bullet-list');
+    fireEvent.click(bulletListButton);
+    
+    expect(mockEditor.chain).toHaveBeenCalled();
+    expect(mockChain.focus).toHaveBeenCalled();
+    expect(mockChain.toggleBulletList).toHaveBeenCalled();
+    expect(mockChain.run).toHaveBeenCalled();
+  });
+
+  it('handles ordered list button click', () => {
+    render(<FormattingToolbar editor={mockEditor as Editor} />);
+    
+    const orderedListButton = screen.getByTestId('toolbar-ordered-list');
+    fireEvent.click(orderedListButton);
+    
+    expect(mockEditor.chain).toHaveBeenCalled();
+    expect(mockChain.focus).toHaveBeenCalled();
+    expect(mockChain.toggleOrderedList).toHaveBeenCalled();
+    expect(mockChain.run).toHaveBeenCalled();
+  });
+
   it('disables buttons when commands cannot be executed', () => {
     // Mock can() to return false for some commands
-    const mockCanChain = {
-      ...mockChain,
-      run: vi.fn(() => false), // Return false to indicate command cannot be executed
-    };
-    
     mockEditor.can = vi.fn(() => ({
-      chain: vi.fn(() => mockCanChain),
-    }));
+      toggleBold: vi.fn(() => false),
+      toggleItalic: vi.fn(() => false),
+      toggleUnderline: vi.fn(() => false),
+      toggleStrike: vi.fn(() => false),
+      toggleSubscript: vi.fn(() => false),
+      toggleSuperscript: vi.fn(() => false),
+      toggleBulletList: vi.fn(() => false),
+      toggleOrderedList: vi.fn(() => false),
+      sinkListItem: vi.fn(() => false),
+      liftListItem: vi.fn(() => false),
+    })) as any;
     
     render(<FormattingToolbar editor={mockEditor as Editor} />);
     
@@ -237,6 +280,8 @@ describe('FormattingToolbar', () => {
     expect(screen.getByTestId('toolbar-strike')).toHaveAttribute('title', 'Strike');
     expect(screen.getByTestId('toolbar-subscript')).toHaveAttribute('title', 'Subscript');
     expect(screen.getByTestId('toolbar-superscript')).toHaveAttribute('title', 'Superscript');
+    expect(screen.getByTestId('toolbar-bullet-list')).toHaveAttribute('title', 'Bullet List');
+    expect(screen.getByTestId('toolbar-ordered-list')).toHaveAttribute('title', 'Ordered List');
   });
 
   it('renders icons correctly', () => {
@@ -248,6 +293,8 @@ describe('FormattingToolbar', () => {
     expect(screen.getByTestId('strikethrough-icon')).toBeInTheDocument();
     expect(screen.getByTestId('subscript-icon')).toBeInTheDocument();
     expect(screen.getByTestId('superscript-icon')).toBeInTheDocument();
+    expect(screen.getByTestId('list-icon')).toBeInTheDocument();
+    expect(screen.getByTestId('list-ordered-icon')).toBeInTheDocument();
   });
 
   it('applies correct CSS classes to toolbar', () => {

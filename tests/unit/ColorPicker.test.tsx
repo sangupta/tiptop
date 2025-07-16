@@ -1,6 +1,6 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/preact';
 import { ColorPicker } from '@/components/ColorPicker';
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 
 describe('ColorPicker', () => {
   const mockOnColorChange = vi.fn();

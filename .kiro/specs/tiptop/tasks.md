@@ -33,15 +33,15 @@
   - Write unit tests for color and styling features
   - _Requirements: 1.3, 1.4, 1.5, 1.6_
 
-- [ ] 4. List and Structure Management
-- [ ] 4.1 Implement list extensions
+- [-] 4. List and Structure Management
+- [x] 4.1 Implement list extensions
   - Integrate @tiptap/extension-bullet-list, @tiptap/extension-ordered-list, @tiptap/extension-list-item
   - Add keyboard shortcuts for list creation and navigation
   - Implement list toolbar controls with appropriate icons
   - Write unit tests for list functionality
   - _Requirements: 2.1, 2.2_
 
-- [ ] 4.2 Add indentation and nesting support
+- [x] 4.2 Add indentation and nesting support
   - Implement Tab and Shift+Tab handlers for list indentation
   - Add visual indicators for nested list levels
   - Create proper hierarchical list structure handling

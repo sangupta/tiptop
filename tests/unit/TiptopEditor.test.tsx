@@ -24,6 +24,9 @@ vi.mock('@tiptap/core', () => ({
       },
     },
   })),
+  Extension: {
+    create: vi.fn(() => ({})),
+  },
 }));
 
 vi.mock('@tiptap/extension-document', () => ({
@@ -78,6 +81,20 @@ vi.mock('@tiptap/extension-highlight', () => ({
 
 vi.mock('@tiptap/extension-text-style', () => ({
   default: {},
+}));
+
+// Mock the enhanced list extensions
+vi.mock('@/extensions', () => ({
+  EnhancedBulletList: {
+    configure: vi.fn(() => ({})),
+  },
+  EnhancedOrderedList: {
+    configure: vi.fn(() => ({})),
+  },
+  EnhancedListItem: {
+    configure: vi.fn(() => ({})),
+  },
+  ListUtilities: {},
 }));
 
 describe('TiptopEditor', () => {

@@ -1,6 +1,6 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/preact';
 import { FontSelector } from '@/components/FontSelector';
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 
 describe('FontSelector', () => {
   const mockOnFontChange = vi.fn();

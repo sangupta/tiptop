@@ -14,6 +14,7 @@ import Color from '@tiptap/extension-color';
 import Highlight from '@tiptap/extension-highlight';
 import TextStyle from '@tiptap/extension-text-style';
 import { TiptopEditorProps, TiptopEditorRef } from '@/types';
+import { EnhancedBulletList, EnhancedOrderedList, EnhancedListItem, ListUtilities } from '@/extensions';
 
 export const TiptopEditor = forwardRef<TiptopEditorRef, TiptopEditorProps>((props, ref) => {
   const {
@@ -57,6 +58,26 @@ export const TiptopEditor = forwardRef<TiptopEditorRef, TiptopEditorProps>((prop
         Highlight.configure({
           multicolor: true,
         }),
+        EnhancedBulletList.configure({
+          HTMLAttributes: {
+            class: 'tiptop-bullet-list',
+          },
+          keepMarks: true,
+          keepAttributes: false,
+        }),
+        EnhancedOrderedList.configure({
+          HTMLAttributes: {
+            class: 'tiptop-ordered-list',
+          },
+          keepMarks: true,
+          keepAttributes: false,
+        }),
+        EnhancedListItem.configure({
+          HTMLAttributes: {
+            class: 'tiptop-list-item',
+          },
+        }),
+        ListUtilities,
       ],
       content: content,
       editable: editable,

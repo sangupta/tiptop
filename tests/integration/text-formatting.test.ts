@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 import { Editor } from '@tiptap/core';
 import Document from '@tiptap/extension-document';
 import Paragraph from '@tiptap/extension-paragraph';
@@ -149,7 +149,7 @@ describe('Text Formatting Integration', () => {
     it('should remove font family using unsetMark', () => {
       editor.commands.selectAll();
       editor.commands.setMark('textStyle', { fontFamily: 'Arial, sans-serif' });
-      editor.commands.unsetMark('textStyle', { fontFamily: null });
+      editor.commands.unsetMark('textStyle');
       
       // Command should execute without error
       expect(editor.isActive('textStyle')).toBeDefined();
@@ -167,7 +167,7 @@ describe('Text Formatting Integration', () => {
     it('should remove font size using unsetMark', () => {
       editor.commands.selectAll();
       editor.commands.setMark('textStyle', { fontSize: '18px' });
-      editor.commands.unsetMark('textStyle', { fontSize: null });
+      editor.commands.unsetMark('textStyle');
       
       // Command should execute without error
       expect(editor.isActive('textStyle')).toBeDefined();
