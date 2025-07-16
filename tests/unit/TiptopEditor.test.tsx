@@ -40,6 +40,30 @@ vi.mock('@tiptap/extension-text', () => ({
   default: {},
 }));
 
+vi.mock('@tiptap/extension-bold', () => ({
+  default: {},
+}));
+
+vi.mock('@tiptap/extension-italic', () => ({
+  default: {},
+}));
+
+vi.mock('@tiptap/extension-underline', () => ({
+  default: {},
+}));
+
+vi.mock('@tiptap/extension-strike', () => ({
+  default: {},
+}));
+
+vi.mock('@tiptap/extension-subscript', () => ({
+  default: {},
+}));
+
+vi.mock('@tiptap/extension-superscript', () => ({
+  default: {},
+}));
+
 describe('TiptopEditor', () => {
   beforeEach(() => {
     vi.clearAllMocks();

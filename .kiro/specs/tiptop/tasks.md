@@ -17,8 +17,8 @@
   - Write unit tests for core editor component in tests/unit/
   - _Requirements: 12.1, 12.2, 13.1_
 
-- [ ] 3. Basic Text Formatting Extensions
-- [ ] 3.1 Implement core text formatting
+- [-] 3. Basic Text Formatting Extensions
+- [x] 3.1 Implement core text formatting
   - Integrate @tiptap/extension-bold, @tiptap/extension-italic, @tiptap/extension-underline
   - Add @tiptap/extension-strike, @tiptap/extension-subscript, @tiptap/extension-superscript
   - Create formatting toolbar component with Lucide React icons

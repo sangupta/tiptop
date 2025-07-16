@@ -4,6 +4,12 @@ import { Editor } from '@tiptap/core';
 import Document from '@tiptap/extension-document';
 import Paragraph from '@tiptap/extension-paragraph';
 import Text from '@tiptap/extension-text';
+import Bold from '@tiptap/extension-bold';
+import Italic from '@tiptap/extension-italic';
+import Underline from '@tiptap/extension-underline';
+import Strike from '@tiptap/extension-strike';
+import Subscript from '@tiptap/extension-subscript';
+import Superscript from '@tiptap/extension-superscript';
 import { TiptopEditorProps, TiptopEditorRef } from '@/types';
 
 export const TiptopEditor = forwardRef<TiptopEditorRef, TiptopEditorProps>((props, ref) => {
@@ -35,6 +41,12 @@ export const TiptopEditor = forwardRef<TiptopEditorRef, TiptopEditorProps>((prop
           },
         }),
         Text,
+        Bold,
+        Italic,
+        Underline,
+        Strike,
+        Subscript,
+        Superscript,
       ],
       content: content,
       editable: editable,
