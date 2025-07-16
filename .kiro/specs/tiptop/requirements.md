@@ -143,7 +143,7 @@ This document outlines the requirements for Tiptop, a comprehensive, AI-enhanced
 
 1. WHEN integrating the editor THEN the system SHALL provide TypeScript interfaces for all major components
 2. WHEN customizing appearance THEN the system SHALL support Tailwind CSS 4.0 for styling
-3. WHEN adding functionality THEN the system SHALL use only official @tiptap/* packages for extensions
+3. WHEN adding functionality THEN the system SHALL use only official @tiptap/\* packages for extensions
 4. WHEN configuring the editor THEN the system SHALL provide comprehensive configuration options
 5. WHEN extending features THEN the system SHALL provide clear plugin architecture and documentation
 

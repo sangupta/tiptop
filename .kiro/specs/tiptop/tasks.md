@@ -1,10 +1,10 @@
 # Tiptop Rich Text Editor - Implementation Plan
 
-- [ ] 1. Project Setup and Core Infrastructure
+- [x] 1. Project Setup and Core Infrastructure
   - Initialize TypeScript project with Preact, Tiptap, and Tailwind CSS 4.0
   - Configure Vite as the build tool with TypeScript and Preact preset
-  - Set up ESLint and Prettier for code quality and formatting
-  - Configure Jest for unit testing and Playwright for E2E testing
+  - Set up Prettier for code quality and formatting
+  - Configure Vitest for unit testing and Playwright for E2E testing
   - Create project structure: src/ (components/, extensions/, services/, utils/, types/, styles/), tests/ (unit/, integration/, e2e/), public/
   - Set up Vite configuration with path aliases and library build options
   - _Requirements: 12.1, 12.3, 13.1_

@@ -16,7 +16,7 @@ graph TB
     AI[AI Services Layer]
     Collab[Collaboration Layer - YJS]
     Storage[Storage & Persistence]
-    
+
     UI --> Editor
     Editor --> Extensions
     UI --> AI
@@ -38,6 +38,7 @@ graph TB
 ### Build Configuration
 
 The project uses **Vite** as the primary build tool and bundler, providing:
+
 - Fast development server with Hot Module Replacement (HMR)
 - Optimized production builds with tree-shaking
 - TypeScript support out of the box
@@ -45,6 +46,7 @@ The project uses **Vite** as the primary build tool and bundler, providing:
 - Built-in support for modern JavaScript features
 
 ### Project Structure
+
 ```
 tiptop/
 ├── src/
@@ -66,6 +68,7 @@ tiptop/
 ```
 
 ### Vite Configuration
+
 ```typescript
 // vite.config.ts
 import { defineConfig } from 'vite';
@@ -77,30 +80,30 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': resolve(__dirname, 'src'),
-      '@tests': resolve(__dirname, 'tests')
-    }
+      '@tests': resolve(__dirname, 'tests'),
+    },
   },
   build: {
     lib: {
       entry: resolve(__dirname, 'src/main.tsx'),
       name: 'Tiptop',
-      fileName: 'tiptop'
+      fileName: 'tiptop',
     },
     rollupOptions: {
       external: ['preact', 'preact/hooks'],
       output: {
         globals: {
           preact: 'preact',
-          'preact/hooks': 'preactHooks'
-        }
-      }
-    }
+          'preact/hooks': 'preactHooks',
+        },
+      },
+    },
   },
   test: {
     globals: true,
     environment: 'jsdom',
-    setupFiles: ['./tests/setup.ts']
-  }
+    setupFiles: ['./tests/setup.ts'],
+  },
 });
 ```
 
@@ -109,6 +112,7 @@ export default defineConfig({
 ### Core Components
 
 #### 1. TiptopEditor Component
+
 ```typescript
 interface TiptopEditorProps {
   content?: string;
@@ -124,18 +128,21 @@ interface TiptopEditorProps {
 ```
 
 #### 2. Toolbar Components
+
 - **MainToolbar**: Primary formatting controls
-- **FloatingToolbar**: Context-sensitive selection toolbar  
+- **FloatingToolbar**: Context-sensitive selection toolbar
 - **BubbleMenu**: Inline formatting options
 - **SlashMenu**: Command palette for quick actions
 
 #### 3. AI Integration Components
+
 - **AIAssistant**: Main AI interaction interface
 - **AIImageGenerator**: Image generation dialog
 - **AIDocumentGenerator**: Document creation assistant
 - **AIEditingSuggestions**: Inline editing recommendations
 
 #### 4. Collaboration Components
+
 - **CollaborationProvider**: YJS integration wrapper
 - **UserCursors**: Real-time cursor display
 - **CommentSystem**: Inline commenting interface
@@ -144,6 +151,7 @@ interface TiptopEditorProps {
 ### Extension Architecture
 
 #### Core Extensions (from @tiptap packages)
+
 ```typescript
 // Text formatting extensions
 - @tiptap/extension-bold
@@ -174,19 +182,21 @@ interface TiptopEditorProps {
 ```
 
 #### Custom Extensions
+
 ```typescript
 // AI-powered extensions
-- TiptopAIAssistant
-- TiptopImageGenerator
-- TiptopCommentSystem
-- TiptopAudioEmbed
-- TiptopVideoEmbed
-- TiptopSyntaxHighlight
+-TiptopAIAssistant -
+  TiptopImageGenerator -
+  TiptopCommentSystem -
+  TiptopAudioEmbed -
+  TiptopVideoEmbed -
+  TiptopSyntaxHighlight;
 ```
 
 ### State Management
 
 #### Editor State Structure
+
 ```typescript
 interface TiptopState {
   editor: {
@@ -218,6 +228,7 @@ interface TiptopState {
 ### Core Data Models
 
 #### Document Model
+
 ```typescript
 interface TiptopDocument {
   id: string;
@@ -241,6 +252,7 @@ interface DocumentMetadata {
 ```
 
 #### Comment Model
+
 ```typescript
 interface Comment {
   id: string;
@@ -262,6 +274,7 @@ interface CommentPosition {
 ```
 
 #### AI Integration Models
+
 ```typescript
 interface AIRequest {
   type: 'edit' | 'generate' | 'image' | 'translate';
@@ -282,6 +295,7 @@ interface AIResponse {
 ### Collaboration Models
 
 #### User Presence
+
 ```typescript
 interface CollaborationUser {
   id: string;
@@ -332,17 +346,20 @@ class TiptopErrorHandler {
 ## Testing Strategy
 
 ### Unit Testing
+
 - **Component Testing**: Preact Testing Library for UI components
 - **Extension Testing**: Tiptap testing utilities for custom extensions
 - **Utility Testing**: Jest for helper functions and utilities
 - **AI Integration Testing**: Mock services for AI functionality
 
 ### Integration Testing
+
 - **Editor Integration**: Full editor workflow testing
 - **Collaboration Testing**: Multi-user scenario simulation
 - **AI Feature Testing**: End-to-end AI workflow validation
 
 ### End-to-End Testing (Playwright)
+
 ```typescript
 // Test scenarios
 - Basic editing workflows
@@ -355,6 +372,7 @@ class TiptopErrorHandler {
 ```
 
 ### Performance Testing
+
 - **Load Testing**: Large document handling
 - **Collaboration Stress Testing**: Multiple concurrent users
 - **Memory Usage**: Long-running session monitoring
@@ -363,6 +381,7 @@ class TiptopErrorHandler {
 ## AI Services Integration
 
 ### AI Service Architecture
+
 ```typescript
 interface AIService {
   textGeneration: TextGenerationService;
@@ -379,6 +398,7 @@ interface TextGenerationService {
 ```
 
 ### AI Integration Points
+
 1. **Inline Suggestions**: Real-time writing assistance
 2. **Content Generation**: On-demand content creation
 3. **Image Generation**: AI-powered visual content
@@ -387,12 +407,14 @@ interface TextGenerationService {
 ## Styling and Theming
 
 ### Tailwind CSS 4.0 Integration
+
 - **Design System**: Consistent spacing, colors, typography
 - **Dark Mode**: Automatic theme switching
 - **Responsive Design**: Mobile-first approach
 - **Custom Components**: Styled editor elements
 
 ### Theme Structure
+
 ```typescript
 interface TiptopTheme {
   colors: {
@@ -416,16 +438,19 @@ interface TiptopTheme {
 ## Security Considerations
 
 ### Content Security
+
 - **XSS Prevention**: Content sanitization
 - **Input Validation**: Strict content validation
 - **File Upload Security**: Type and size restrictions
 
 ### Collaboration Security
+
 - **Authentication**: User verification
 - **Authorization**: Permission-based access
 - **Data Encryption**: End-to-end encryption for sensitive content
 
 ### AI Security
+
 - **Prompt Injection Prevention**: Input sanitization
 - **Rate Limiting**: API usage controls
 - **Data Privacy**: No sensitive data in AI requests
@@ -433,17 +458,20 @@ interface TiptopTheme {
 ## Performance Optimization
 
 ### Editor Performance
+
 - **Virtual Scrolling**: Large document optimization
 - **Lazy Loading**: On-demand extension loading
 - **Debounced Updates**: Optimized change handling
 - **Memory Management**: Efficient cleanup
 
 ### Collaboration Performance
+
 - **Operational Transform**: Efficient conflict resolution
 - **Delta Compression**: Minimized network traffic
 - **Connection Pooling**: Optimized WebSocket usage
 
 ### AI Performance
+
 - **Request Batching**: Grouped AI operations
 - **Caching**: Response caching for common requests
 - **Streaming**: Real-time response handling
