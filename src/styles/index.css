@@ -1,113 +1,188 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 /* Base styles for the Tiptop editor */
-@layer base {
-  html {
-    font-family: 'Inter', system-ui, sans-serif;
-  }
+html {
+  font-family: 'Inter', system-ui, sans-serif;
+}
 
-  body {
-    @apply antialiased;
-  }
+body {
+  font-smoothing: antialiased;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Component styles */
-@layer components {
-  .tiptop-editor-content {
-    @apply prose prose-sm sm:prose lg:prose-lg xl:prose-xl mx-auto focus:outline-none;
-    max-width: none;
-  }
+.tiptop-editor-content {
+  max-width: none;
+  margin-left: auto;
+  margin-right: auto;
+}
 
-  .tiptop-editor-content.dark {
-    @apply prose-invert;
-  }
+.tiptop-editor-content:focus {
+  outline: none;
+}
 
-  /* Placeholder styling */
-  .tiptop-editor-content p.is-editor-empty:first-child::before {
-    content: attr(data-placeholder);
-    @apply text-gray-400 dark:text-gray-500 pointer-events-none float-left h-0;
-  }
+/* Placeholder styling */
+.tiptop-editor-content p.is-editor-empty:first-child::before {
+  content: attr(data-placeholder);
+  color: rgb(156 163 175);
+  pointer-events: none;
+  float: left;
+  height: 0;
+}
 
-  .tiptop-paragraph {
-    @apply mb-3 last:mb-0;
-  }
+.dark .tiptop-editor-content p.is-editor-empty:first-child::before {
+  color: rgb(107 114 128);
+}
 
-  .tiptop-paragraph:empty {
-    @apply min-h-[1.5em];
-  }
+.tiptop-paragraph {
+  margin-bottom: 0.75rem;
+}
 
-  .tiptop-toolbar {
-    @apply flex items-center gap-1 p-2 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800;
-  }
+.tiptop-paragraph:last-child {
+  margin-bottom: 0;
+}
 
-  .tiptop-toolbar-button {
-    @apply p-2 rounded hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors duration-200 flex items-center justify-center;
-  }
+.tiptop-paragraph:empty {
+  min-height: 1.5em;
+}
 
-  .tiptop-toolbar-button.active {
-    @apply bg-primary-100 dark:bg-primary-900 text-primary-700 dark:text-primary-300;
-  }
+.tiptop-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.5rem;
+  border-bottom: 1px solid rgb(229 231 235);
+  background-color: white;
+}
 
-  /* List styles */
-  .tiptop-bullet-list {
-    @apply list-disc pl-6 mb-3 last:mb-0;
-  }
+.dark .tiptop-toolbar {
+  border-bottom-color: rgb(55 65 81);
+  background-color: rgb(31 41 55);
+}
 
-  .tiptop-ordered-list {
-    @apply list-decimal pl-6 mb-3 last:mb-0;
-  }
+.tiptop-toolbar-button {
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+  transition: background-color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-  .tiptop-list-item {
-    @apply mb-1 last:mb-0;
-  }
+.tiptop-toolbar-button:hover {
+  background-color: rgb(243 244 246);
+}
 
-  .tiptop-list-item p {
-    @apply mb-0;
-  }
+.dark .tiptop-toolbar-button:hover {
+  background-color: rgb(55 65 81);
+}
 
-  /* Nested list styles with proper indentation */
-  .tiptop-bullet-list .tiptop-bullet-list {
-    @apply list-disc mb-1 mt-1;
-    list-style-type: circle;
-  }
+.tiptop-toolbar-button.active {
+  background-color: rgb(219 234 254);
+  color: rgb(29 78 216);
+}
 
-  .tiptop-ordered-list .tiptop-ordered-list {
-    @apply list-decimal mb-1 mt-1;
-    list-style-type: lower-alpha;
-  }
+.dark .tiptop-toolbar-button.active {
+  background-color: rgb(30 58 138);
+  color: rgb(147 197 253);
+}
 
-  .tiptop-bullet-list .tiptop-ordered-list {
-    @apply list-decimal mb-1 mt-1;
-  }
+/* List styles */
+.tiptop-bullet-list {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+  margin-bottom: 0.75rem;
+}
 
-  .tiptop-ordered-list .tiptop-bullet-list {
-    @apply list-disc mb-1 mt-1;
-    list-style-type: circle;
-  }
+.tiptop-bullet-list:last-child {
+  margin-bottom: 0;
+}
 
-  /* Third level nesting */
-  .tiptop-bullet-list .tiptop-bullet-list .tiptop-bullet-list {
-    list-style-type: square;
-  }
+.tiptop-ordered-list {
+  list-style-type: decimal;
+  padding-left: 1.5rem;
+  margin-bottom: 0.75rem;
+}
 
-  .tiptop-ordered-list .tiptop-ordered-list .tiptop-ordered-list {
-    list-style-type: lower-roman;
-  }
+.tiptop-ordered-list:last-child {
+  margin-bottom: 0;
+}
 
-  /* Ensure proper spacing for nested lists */
-  .tiptop-list-item > .tiptop-bullet-list,
-  .tiptop-list-item > .tiptop-ordered-list {
-    @apply mt-1 mb-0;
-  }
+.tiptop-list-item {
+  margin-bottom: 0.25rem;
+}
+
+.tiptop-list-item:last-child {
+  margin-bottom: 0;
+}
+
+.tiptop-list-item p {
+  margin-bottom: 0;
+}
+
+/* Nested list styles with proper indentation */
+.tiptop-bullet-list .tiptop-bullet-list {
+  list-style-type: circle;
+  margin-bottom: 0.25rem;
+  margin-top: 0.25rem;
+}
+
+.tiptop-ordered-list .tiptop-ordered-list {
+  list-style-type: lower-alpha;
+  margin-bottom: 0.25rem;
+  margin-top: 0.25rem;
+}
+
+.tiptop-bullet-list .tiptop-ordered-list {
+  list-style-type: decimal;
+  margin-bottom: 0.25rem;
+  margin-top: 0.25rem;
+}
+
+.tiptop-ordered-list .tiptop-bullet-list {
+  list-style-type: circle;
+  margin-bottom: 0.25rem;
+  margin-top: 0.25rem;
+}
+
+/* Third level nesting */
+.tiptop-bullet-list .tiptop-bullet-list .tiptop-bullet-list {
+  list-style-type: square;
+}
+
+.tiptop-ordered-list .tiptop-ordered-list .tiptop-ordered-list {
+  list-style-type: lower-roman;
+}
+
+/* Ensure proper spacing for nested lists */
+.tiptop-list-item > .tiptop-bullet-list,
+.tiptop-list-item > .tiptop-ordered-list {
+  margin-top: 0.25rem;
+  margin-bottom: 0;
 }
 
 /* Utility styles */
-@layer utilities {
-  .tiptop-fade-in {
-    animation: fadeIn 0.2s ease-in-out;
-  }
+.tiptop-fade-in {
+  animation: fadeIn 0.2s ease-in-out;
+}
 
-  .tiptop-slide-up {
-    animation: slideUp 0.3s ease-out;
+.tiptop-slide-up {
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { 
+    transform: translateY(10px); 
+    opacity: 0; 
+  }
+  to { 
+    transform: translateY(0); 
+    opacity: 1; 
   }
 }
