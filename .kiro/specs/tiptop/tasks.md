@@ -57,7 +57,7 @@
   - _Requirements: 4.1, 4.2, 4.3, 4.4_
 
 - [ ] 6. Media Integration Foundation
-- [ ] 6.1 Implement image support
+- [x] 6.1 Implement image support
   - Integrate @tiptap/extension-image with drag-and-drop, file upload, and URL insertion
   - Create image insertion dialog with multiple input methods
   - Add image resizing and positioning controls
@@ -65,7 +65,7 @@
   - Write unit tests for image functionality
   - _Requirements: 3.1_
 
-- [ ] 6.2 Add audio and video support
+- [x] 6.2 Add audio and video support
   - Create custom TiptopAudioEmbed extension for audio file embedding
   - Create custom TiptopVideoEmbed extension for video file embedding
   - Implement media upload and URL insertion interfaces

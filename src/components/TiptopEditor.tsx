@@ -15,7 +15,7 @@ import Highlight from '@tiptap/extension-highlight';
 import TextStyle from '@tiptap/extension-text-style';
 import TextAlign from '@tiptap/extension-text-align';
 import { TiptopEditorProps, TiptopEditorRef } from '@/types';
-import { EnhancedBulletList, EnhancedOrderedList, EnhancedListItem, ListUtilities } from '@/extensions';
+import { EnhancedBulletList, EnhancedOrderedList, EnhancedListItem, ListUtilities, EnhancedImage, TiptopAudioEmbed, TiptopVideoEmbed } from '@/extensions';
 
 export const TiptopEditor = forwardRef<TiptopEditorRef, TiptopEditorProps>((props, ref) => {
   const {
@@ -84,6 +84,27 @@ export const TiptopEditor = forwardRef<TiptopEditorRef, TiptopEditorProps>((prop
           },
         }),
         ListUtilities,
+        EnhancedImage.configure({
+          HTMLAttributes: {
+            class: 'tiptop-image max-w-full h-auto rounded-lg',
+          },
+          inline: false,
+          allowBase64: true,
+        }),
+        TiptopAudioEmbed.configure({
+          HTMLAttributes: {
+            class: 'tiptop-audio max-w-full rounded-lg',
+          },
+          inline: false,
+          allowBase64: true,
+        }),
+        TiptopVideoEmbed.configure({
+          HTMLAttributes: {
+            class: 'tiptop-video max-w-full rounded-lg',
+          },
+          inline: false,
+          allowBase64: true,
+        }),
       ],
       content: content,
       editable: editable,

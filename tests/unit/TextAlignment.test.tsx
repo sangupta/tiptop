@@ -5,6 +5,54 @@ import { FormattingToolbar } from '@/components/FormattingToolbar';
 import { useRef, useState, useEffect } from 'preact/hooks';
 import type { TiptopEditorRef } from '@/types';
 
+// Mock Lucide icons
+vi.mock('lucide-preact', () => ({
+  Bold: () => <span data-testid="bold-icon">Bold</span>,
+  Italic: () => <span data-testid="italic-icon">Italic</span>,
+  Underline: () => <span data-testid="underline-icon">Underline</span>,
+  Strikethrough: () => <span data-testid="strikethrough-icon">Strikethrough</span>,
+  Subscript: () => <span data-testid="subscript-icon">Subscript</span>,
+  Superscript: () => <span data-testid="superscript-icon">Superscript</span>,
+  List: () => <span data-testid="list-icon">List</span>,
+  ListOrdered: () => <span data-testid="list-ordered-icon">ListOrdered</span>,
+  Indent: () => <span data-testid="indent-icon">Indent</span>,
+  Outdent: () => <span data-testid="outdent-icon">Outdent</span>,
+  Palette: () => <span data-testid="palette-icon">Palette</span>,
+  ChevronDown: () => <span data-testid="chevron-down-icon">ChevronDown</span>,
+  Type: () => <span data-testid="type-icon">Type</span>,
+  AlignLeft: () => <span data-testid="align-left-icon">AlignLeft</span>,
+  AlignCenter: () => <span data-testid="align-center-icon">AlignCenter</span>,
+  AlignRight: () => <span data-testid="align-right-icon">AlignRight</span>,
+  AlignJustify: () => <span data-testid="align-justify-icon">AlignJustify</span>,
+  Upload: () => <span data-testid="upload-icon">Upload</span>,
+  Link: () => <span data-testid="link-icon">Link</span>,
+  X: () => <span data-testid="x-icon">X</span>,
+}));
+
+// Mock ColorPicker and FontSelector components
+vi.mock('@/components/ColorPicker', () => ({
+  ColorPicker: ({ onColorChange, label, currentColor }: any) => (
+    <div data-testid={`color-picker-${label.toLowerCase().replace(/\s+/g, '-')}`}>
+      <button onClick={() => onColorChange('#ff0000')}>
+        {label} - {currentColor}
+      </button>
+    </div>
+  ),
+}));
+
+vi.mock('@/components/FontSelector', () => ({
+  FontSelector: ({ onFontChange, onSizeChange, currentFont, currentSize }: any) => (
+    <div data-testid="font-selector">
+      <button onClick={() => onFontChange('Arial, sans-serif')}>
+        Font: {currentFont}
+      </button>
+      <button onClick={() => onSizeChange('18px')}>
+        Size: {currentSize}
+      </button>
+    </div>
+  ),
+}));
+
 // Mock editor for testing toolbar functionality
 const createMockEditor = () => ({
   isActive: vi.fn((attrs) => {

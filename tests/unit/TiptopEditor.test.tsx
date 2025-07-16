@@ -95,6 +95,15 @@ vi.mock('@/extensions', () => ({
     configure: vi.fn(() => ({})),
   },
   ListUtilities: {},
+  EnhancedImage: {
+    configure: vi.fn(() => ({})),
+  },
+  TiptopAudioEmbed: {
+    configure: vi.fn(() => ({})),
+  },
+  TiptopVideoEmbed: {
+    configure: vi.fn(() => ({})),
+  },
 }));
 
 describe('TiptopEditor', () => {

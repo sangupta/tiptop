@@ -18,6 +18,13 @@ vi.mock('lucide-preact', () => ({
   Palette: () => <span data-testid="palette-icon">Palette</span>,
   ChevronDown: () => <span data-testid="chevron-down-icon">ChevronDown</span>,
   Type: () => <span data-testid="type-icon">Type</span>,
+  AlignLeft: () => <span data-testid="align-left-icon">AlignLeft</span>,
+  AlignCenter: () => <span data-testid="align-center-icon">AlignCenter</span>,
+  AlignRight: () => <span data-testid="align-right-icon">AlignRight</span>,
+  AlignJustify: () => <span data-testid="align-justify-icon">AlignJustify</span>,
+  Upload: () => <span data-testid="upload-icon">Upload</span>,
+  Link: () => <span data-testid="link-icon">Link</span>,
+  X: () => <span data-testid="x-icon">X</span>,
 }));
 
 // Mock ColorPicker and FontSelector components
@@ -85,6 +92,7 @@ describe('FormattingToolbar', () => {
         toggleOrderedList: vi.fn(() => true),
         sinkListItem: vi.fn(() => true),
         liftListItem: vi.fn(() => true),
+        setTextAlign: vi.fn(() => true),
       })) as any,
       isActive: vi.fn((format: string) => {
         // Mock some formats as active for testing
@@ -253,6 +261,7 @@ describe('FormattingToolbar', () => {
       toggleOrderedList: vi.fn(() => false),
       sinkListItem: vi.fn(() => false),
       liftListItem: vi.fn(() => false),
+      setTextAlign: vi.fn(() => false),
     })) as any;
     
     render(<FormattingToolbar editor={mockEditor as Editor} />);

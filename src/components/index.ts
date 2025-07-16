@@ -3,3 +3,4 @@ export * from './TiptopEditor';
 export * from './FormattingToolbar';
 export * from './ColorPicker';
 export * from './FontSelector';
+export * from './MediaUpload';
