@@ -64,6 +64,22 @@ vi.mock('@tiptap/extension-superscript', () => ({
   default: {},
 }));
 
+vi.mock('@tiptap/extension-color', () => ({
+  default: {
+    configure: vi.fn(() => ({})),
+  },
+}));
+
+vi.mock('@tiptap/extension-highlight', () => ({
+  default: {
+    configure: vi.fn(() => ({})),
+  },
+}));
+
+vi.mock('@tiptap/extension-text-style', () => ({
+  default: {},
+}));
+
 describe('TiptopEditor', () => {
   beforeEach(() => {
     vi.clearAllMocks();

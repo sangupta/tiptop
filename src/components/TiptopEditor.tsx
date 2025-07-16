@@ -10,6 +10,9 @@ import Underline from '@tiptap/extension-underline';
 import Strike from '@tiptap/extension-strike';
 import Subscript from '@tiptap/extension-subscript';
 import Superscript from '@tiptap/extension-superscript';
+import Color from '@tiptap/extension-color';
+import Highlight from '@tiptap/extension-highlight';
+import TextStyle from '@tiptap/extension-text-style';
 import { TiptopEditorProps, TiptopEditorRef } from '@/types';
 
 export const TiptopEditor = forwardRef<TiptopEditorRef, TiptopEditorProps>((props, ref) => {
@@ -47,6 +50,13 @@ export const TiptopEditor = forwardRef<TiptopEditorRef, TiptopEditorProps>((prop
         Strike,
         Subscript,
         Superscript,
+        TextStyle,
+        Color.configure({
+          types: ['textStyle'],
+        }),
+        Highlight.configure({
+          multicolor: true,
+        }),
       ],
       content: content,
       editable: editable,

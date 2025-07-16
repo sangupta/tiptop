@@ -7,6 +7,8 @@ import {
   Subscript, 
   Superscript 
 } from 'lucide-preact';
+import { ColorPicker } from './ColorPicker';
+import { FontSelector } from './FontSelector';
 
 interface FormattingToolbarProps {
   editor: Editor | null;
@@ -93,22 +95,101 @@ export const FormattingToolbar = ({ editor, className = '' }: FormattingToolbarP
     },
   ];
 
+  const handleTextColorChange = (color: string) => {
+    if (color) {
+      editor.chain().focus().setColor(color).run();
+    } else {
+      editor.chain().focus().unsetColor().run();
+    }
+  };
+
+  const handleHighlightColorChange = (color: string) => {
+    if (color) {
+      editor.chain().focus().setHighlight({ color }).run();
+    } else {
+      editor.chain().focus().unsetHighlight().run();
+    }
+  };
+
+  const handleFontFamilyChange = (fontFamily: string) => {
+    if (fontFamily) {
+      editor.chain().focus().setMark('textStyle', { fontFamily }).run();
+    } else {
+      editor.chain().focus().unsetMark('textStyle', { fontFamily: null }).run();
+    }
+  };
+
+  const handleFontSizeChange = (fontSize: string) => {
+    if (fontSize) {
+      editor.chain().focus().setMark('textStyle', { fontSize }).run();
+    } else {
+      editor.chain().focus().unsetMark('textStyle', { fontSize: null }).run();
+    }
+  };
+
+  const getCurrentTextColor = () => {
+    return editor.getAttributes('textStyle').color || '';
+  };
+
+  const getCurrentHighlightColor = () => {
+    return editor.getAttributes('highlight').color || '';
+  };
+
+  const getCurrentFontFamily = () => {
+    return editor.getAttributes('textStyle').fontFamily || '';
+  };
+
+  const getCurrentFontSize = () => {
+    return editor.getAttributes('textStyle').fontSize || '';
+  };
+
   return (
     <div 
-      className={`flex items-center gap-1 p-2 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg ${className}`}
+      className={`flex items-center gap-3 p-2 bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg ${className}`}
       data-testid="formatting-toolbar"
     >
-      {formatButtons.map((button) => (
-        <ToolbarButton
-          key={button.title}
-          onClick={button.action}
-          isActive={button.isActive()}
-          disabled={!button.canExecute()}
-          title={button.title}
-        >
-          {button.icon}
-        </ToolbarButton>
-      ))}
+      {/* Basic formatting buttons */}
+      <div className="flex items-center gap-1">
+        {formatButtons.map((button) => (
+          <ToolbarButton
+            key={button.title}
+            onClick={button.action}
+            isActive={button.isActive()}
+            disabled={!button.canExecute()}
+            title={button.title}
+          >
+            {button.icon}
+          </ToolbarButton>
+        ))}
+      </div>
+
+      {/* Separator */}
+      <div className="w-px h-6 bg-gray-300 dark:bg-gray-600" />
+
+      {/* Font controls */}
+      <FontSelector
+        currentFont={getCurrentFontFamily()}
+        currentSize={getCurrentFontSize()}
+        onFontChange={handleFontFamilyChange}
+        onSizeChange={handleFontSizeChange}
+      />
+
+      {/* Separator */}
+      <div className="w-px h-6 bg-gray-300 dark:bg-gray-600" />
+
+      {/* Color controls */}
+      <div className="flex items-center gap-2">
+        <ColorPicker
+          currentColor={getCurrentTextColor()}
+          onColorChange={handleTextColorChange}
+          label="Text Color"
+        />
+        <ColorPicker
+          currentColor={getCurrentHighlightColor()}
+          onColorChange={handleHighlightColorChange}
+          label="Highlight Color"
+        />
+      </div>
     </div>
   );
 };

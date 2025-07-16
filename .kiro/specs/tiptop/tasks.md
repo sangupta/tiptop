@@ -25,7 +25,7 @@
   - Write unit tests for text formatting functionality
   - _Requirements: 1.1, 1.2, 12.3_
 
-- [ ] 3.2 Implement color and styling extensions
+- [x] 3.2 Implement color and styling extensions
   - Integrate @tiptap/extension-color and @tiptap/extension-highlight for text and background colors
   - Add @tiptap/extension-text-style for font family and size controls
   - Create color picker components for text and background colors
