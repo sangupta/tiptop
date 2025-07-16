@@ -13,12 +13,27 @@
 
 /* Component styles */
 @layer components {
-  .tiptop-editor {
+  .tiptop-editor-content {
     @apply prose prose-sm sm:prose lg:prose-lg xl:prose-xl mx-auto focus:outline-none;
+    max-width: none;
   }
 
-  .tiptop-editor-dark {
+  .tiptop-editor-content.dark {
     @apply prose-invert;
+  }
+
+  /* Placeholder styling */
+  .tiptop-editor-content p.is-editor-empty:first-child::before {
+    content: attr(data-placeholder);
+    @apply text-gray-400 dark:text-gray-500 pointer-events-none float-left h-0;
+  }
+
+  .tiptop-paragraph {
+    @apply mb-3 last:mb-0;
+  }
+
+  .tiptop-paragraph:empty {
+    @apply min-h-[1.5em];
   }
 
   .tiptop-toolbar {

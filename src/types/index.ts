@@ -1,15 +1,28 @@
 // Core type definitions for Tiptop editor
-// These will be expanded in subsequent tasks
+import { Editor, JSONContent } from '@tiptap/core';
 
 export interface TiptopEditorProps {
-  content?: string;
+  content?: string | JSONContent;
   editable?: boolean;
   collaborative?: boolean;
   aiEnabled?: boolean;
   theme?: 'light' | 'dark' | 'auto';
-  onUpdate?: (content: string) => void;
-  onSelectionUpdate?: (selection: Selection) => void;
+  onUpdate?: (content: string, json: JSONContent) => void;
+  onSelectionUpdate?: (selection: { from: number; to: number; empty: boolean }) => void;
+  onFocus?: () => void;
+  onBlur?: () => void;
   className?: string;
+  placeholder?: string;
+}
+
+export interface TiptopEditorRef {
+  editor: Editor | null;
+  getContent: () => string;
+  getJSON: () => JSONContent;
+  setContent: (content: string | JSONContent) => void;
+  focus: () => void;
+  blur: () => void;
+  destroy: () => void;
 }
 
 export interface TiptopTheme {
