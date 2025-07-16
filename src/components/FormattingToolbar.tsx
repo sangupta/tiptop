@@ -9,7 +9,11 @@ import {
   List,
   ListOrdered,
   Indent,
-  Outdent
+  Outdent,
+  AlignLeft,
+  AlignCenter,
+  AlignRight,
+  AlignJustify
 } from 'lucide-preact';
 import { ColorPicker } from './ColorPicker';
 import { FontSelector } from './FontSelector';

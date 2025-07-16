@@ -13,6 +13,7 @@ import Superscript from '@tiptap/extension-superscript';
 import Color from '@tiptap/extension-color';
 import Highlight from '@tiptap/extension-highlight';
 import TextStyle from '@tiptap/extension-text-style';
+import TextAlign from '@tiptap/extension-text-align';
 import { TiptopEditorProps, TiptopEditorRef } from '@/types';
 import { EnhancedBulletList, EnhancedOrderedList, EnhancedListItem, ListUtilities } from '@/extensions';
 
@@ -57,6 +58,11 @@ export const TiptopEditor = forwardRef<TiptopEditorRef, TiptopEditorProps>((prop
         }),
         Highlight.configure({
           multicolor: true,
+        }),
+        TextAlign.configure({
+          types: ['heading', 'paragraph'],
+          alignments: ['left', 'center', 'right', 'justify'],
+          defaultAlignment: 'left',
         }),
         EnhancedBulletList.configure({
           HTMLAttributes: {
