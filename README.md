@@ -2,6 +2,9 @@
 
 A modern, AI-enhanced collaborative rich text editor built with Tiptap and Preact.
 
+> [!IMPORTANT]
+> Tiptop has been eniterly vibe coded using Amazon Kiro in its preview period. 
+
 ## Features
 
 - 🎨 Rich text formatting with comprehensive typography controls
