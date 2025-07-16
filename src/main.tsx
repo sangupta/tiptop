@@ -1,5 +1,5 @@
 import { render } from 'preact';
-import { useState, useRef } from 'preact/hooks';
+import { useState, useRef, useEffect } from 'preact/hooks';
 import { TiptopEditor, FormattingToolbar } from './components';
 import { TiptopEditorRef } from './types';
 import { JSONContent } from '@tiptap/core';
@@ -8,7 +8,21 @@ import './styles/index.css';
 // Main entry point for the Tiptop editor
 function App() {
   const [content, setContent] = useState<string>('<p>Welcome to Tiptop! Start typing to see the editor in action.</p>');
+  const [editorReady, setEditorReady] = useState(false);
   const editorRef = useRef<TiptopEditorRef>(null);
+
+  // Check if editor is ready
+  useEffect(() => {
+    const checkEditor = () => {
+      if (editorRef.current?.editor) {
+        setEditorReady(true);
+      } else {
+        // Keep checking until editor is ready
+        setTimeout(checkEditor, 50);
+      }
+    };
+    checkEditor();
+  }, []);
 
   const handleUpdate = (html: string, json: JSONContent) => {
     setContent(html);
@@ -30,10 +44,12 @@ function App() {
             Text Formatting Demo
           </h2>
           <div className="space-y-4">
-            <FormattingToolbar 
-              editor={editorRef.current?.editor || null} 
-              className="mb-4"
-            />
+            {editorReady && (
+              <FormattingToolbar 
+                editor={editorRef.current?.editor || null} 
+                className="mb-4"
+              />
+            )}
             <TiptopEditor
               ref={editorRef}
               content={content}
