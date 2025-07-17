@@ -92,13 +92,23 @@ const createMockEditor = () => ({
       unsetHighlight: vi.fn(() => ({ run: vi.fn() })),
       setMark: vi.fn(() => ({ run: vi.fn() })),
       unsetMark: vi.fn(() => ({ run: vi.fn() })),
+      setLink: vi.fn(() => ({ run: vi.fn() })),
+      unsetLink: vi.fn(() => ({ run: vi.fn() })),
+      insertContent: vi.fn(() => ({ run: vi.fn() })),
     })),
   })),
   getAttributes: vi.fn((mark) => {
     if (mark === 'textStyle') return { color: '', fontFamily: '', fontSize: '' };
     if (mark === 'highlight') return { color: '' };
+    if (mark === 'link') return { href: '' };
     return {};
   }),
+  state: {
+    selection: { from: 0, to: 0 },
+    doc: {
+      textBetween: vi.fn().mockReturnValue(''),
+    },
+  },
 });
 
 // Test component that combines editor and toolbar

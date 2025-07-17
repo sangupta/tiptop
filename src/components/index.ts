@@ -4,3 +4,4 @@ export * from './FormattingToolbar';
 export * from './ColorPicker';
 export * from './FontSelector';
 export * from './MediaUpload';
+export * from './LinkDialog';

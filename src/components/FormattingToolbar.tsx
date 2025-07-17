@@ -1,3 +1,4 @@
+import { useState } from 'preact/hooks';
 import { Editor } from '@tiptap/core';
 import { 
   Bold, 
@@ -13,10 +14,12 @@ import {
   AlignLeft,
   AlignCenter,
   AlignRight,
-  AlignJustify
+  AlignJustify,
+  Link
 } from 'lucide-preact';
 import { ColorPicker } from './ColorPicker';
 import { FontSelector } from './FontSelector';
+import { LinkDialog } from './LinkDialog';
 
 interface FormattingToolbarProps {
   editor: Editor | null;
@@ -54,6 +57,8 @@ const ToolbarButton = ({ onClick, isActive, disabled, children, title }: Toolbar
 );
 
 export const FormattingToolbar = ({ editor, className = '' }: FormattingToolbarProps) => {
+  const [isLinkDialogOpen, setIsLinkDialogOpen] = useState(false);
+
   if (!editor) {
     return null;
   }
@@ -201,19 +206,33 @@ export const FormattingToolbar = ({ editor, className = '' }: FormattingToolbarP
   };
 
   const getCurrentTextColor = () => {
-    return editor.getAttributes('textStyle').color || '';
+    return editor?.getAttributes('textStyle')?.color || '';
   };
 
   const getCurrentHighlightColor = () => {
-    return editor.getAttributes('highlight').color || '';
+    return editor?.getAttributes('highlight')?.color || '';
   };
 
   const getCurrentFontFamily = () => {
-    return editor.getAttributes('textStyle').fontFamily || '';
+    return editor?.getAttributes('textStyle')?.fontFamily || '';
   };
 
   const getCurrentFontSize = () => {
-    return editor.getAttributes('textStyle').fontSize || '';
+    return editor?.getAttributes('textStyle')?.fontSize || '';
+  };
+
+  const handleLinkClick = () => {
+    setIsLinkDialogOpen(true);
+  };
+
+  const getCurrentLinkUrl = () => {
+    return editor?.getAttributes('link')?.href || '';
+  };
+
+  const getSelectedText = () => {
+    if (!editor || !editor.state) return '';
+    const { from, to } = editor.state.selection;
+    return editor.state.doc.textBetween(from, to, '');
   };
 
   return (
@@ -290,6 +309,19 @@ export const FormattingToolbar = ({ editor, className = '' }: FormattingToolbarP
       {/* Separator */}
       <div className="w-px h-6 bg-gray-300 dark:bg-gray-600" />
 
+      {/* Link button */}
+      <ToolbarButton
+        onClick={handleLinkClick}
+        isActive={editor?.isActive('link') || false}
+        disabled={false}
+        title="Add Link"
+      >
+        <Link size={16} />
+      </ToolbarButton>
+
+      {/* Separator */}
+      <div className="w-px h-6 bg-gray-300 dark:bg-gray-600" />
+
       {/* Font controls */}
       <FontSelector
         currentFont={getCurrentFontFamily()}
@@ -314,6 +346,15 @@ export const FormattingToolbar = ({ editor, className = '' }: FormattingToolbarP
           label="Highlight Color"
         />
       </div>
+
+      {/* Link Dialog */}
+      <LinkDialog
+        editor={editor}
+        isOpen={isLinkDialogOpen}
+        onClose={() => setIsLinkDialogOpen(false)}
+        initialUrl={getCurrentLinkUrl()}
+        initialText={getSelectedText()}
+      />
     </div>
   );
 };

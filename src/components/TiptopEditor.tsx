@@ -14,6 +14,7 @@ import Color from '@tiptap/extension-color';
 import Highlight from '@tiptap/extension-highlight';
 import TextStyle from '@tiptap/extension-text-style';
 import TextAlign from '@tiptap/extension-text-align';
+import Link from '@tiptap/extension-link';
 import { TiptopEditorProps, TiptopEditorRef } from '@/types';
 import { EnhancedBulletList, EnhancedOrderedList, EnhancedListItem, ListUtilities, EnhancedImage, TiptopAudioEmbed, TiptopVideoEmbed } from '@/extensions';
 
@@ -63,6 +64,12 @@ export const TiptopEditor = forwardRef<TiptopEditorRef, TiptopEditorProps>((prop
           types: ['heading', 'paragraph'],
           alignments: ['left', 'center', 'right', 'justify'],
           defaultAlignment: 'left',
+        }),
+        Link.configure({
+          openOnClick: false,
+          HTMLAttributes: {
+            class: 'tiptop-link text-blue-600 dark:text-blue-400 underline hover:text-blue-800 dark:hover:text-blue-300 transition-colors',
+          },
         }),
         EnhancedBulletList.configure({
           HTMLAttributes: {

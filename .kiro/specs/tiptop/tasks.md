@@ -48,7 +48,7 @@
   - Write unit tests for indentation and nesting
   - _Requirements: 2.3, 2.4, 2.5_
 
-- [ ] 5. Text Alignment and Layout
+- [x] 5. Text Alignment and Layout
   - Integrate @tiptap/extension-text-align with left, right, center, and justify options
   - Create alignment toolbar controls with appropriate icons
   - Implement keyboard shortcuts for text alignment
@@ -73,7 +73,7 @@
   - Write unit tests for audio and video functionality
   - _Requirements: 3.2, 3.3_
 
-- [ ] 6.3 Implement hyperlink functionality
+- [x] 6.3 Implement hyperlink functionality
   - Integrate @tiptap/extension-link with URL input and link text customization
   - Create link insertion and editing dialogs
   - Add link preview and hover functionality
