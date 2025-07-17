@@ -1,4 +1,4 @@
-import { useEffect, useRef, useImperativeHandle } from 'preact/hooks';
+import { useEffect, useRef, useImperativeHandle, useState } from 'preact/hooks';
 import { forwardRef } from 'preact/compat';
 import { Editor } from '@tiptap/core';
 import Document from '@tiptap/extension-document';
@@ -29,6 +29,10 @@ import {
   TiptopPreformatted,
   TiptopSyntaxHighlight
 } from '@/extensions';
+import { FloatingToolbar } from './FloatingToolbar';
+import { BubbleMenu } from './BubbleMenu';
+import { ContextMenu } from './ContextMenu';
+import { SlashMenu } from './SlashMenu';
 
 export const TiptopEditor = forwardRef<TiptopEditorRef, TiptopEditorProps>((props, ref) => {
   const {
@@ -219,12 +223,22 @@ export const TiptopEditor = forwardRef<TiptopEditorRef, TiptopEditorProps>((prop
   }));
 
   return (
-    <div className={`tiptop-editor-container ${className}`} data-testid="tiptop-editor-container">
+    <div className={`tiptop-editor-container relative ${className}`} data-testid="tiptop-editor-container">
       <div 
         ref={editorRef}
         className="tiptop-editor min-h-[200px] p-4 border border-gray-200 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 focus-within:ring-2 focus-within:ring-primary-500 focus-within:border-primary-500 transition-colors"
         data-testid="tiptop-editor"
       />
+      
+      {/* Context-aware toolbars and menus */}
+      {editorInstanceRef.current && (
+        <>
+          <FloatingToolbar editor={editorInstanceRef.current} />
+          <BubbleMenu editor={editorInstanceRef.current} />
+          <ContextMenu editor={editorInstanceRef.current} />
+          <SlashMenu editor={editorInstanceRef.current} />
+        </>
+      )}
     </div>
   );
 });

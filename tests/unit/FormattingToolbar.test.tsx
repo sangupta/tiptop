@@ -27,8 +27,13 @@ vi.mock('lucide-preact', () => ({
   AlignRight: () => <span data-testid="align-right-icon">AlignRight</span>,
   AlignJustify: () => <span data-testid="align-justify-icon">AlignJustify</span>,
   Upload: () => <span data-testid="upload-icon">Upload</span>,
-  Link: () => <span data-testid="link-icon">Link</span>,
   X: () => <span data-testid="x-icon">X</span>,
+  Quote: () => <span data-testid="quote-icon">Quote</span>,
+  Code: () => <span data-testid="code-icon">Code</span>,
+  FileText: () => <span data-testid="file-text-icon">FileText</span>,
+  SquareCode: () => <span data-testid="square-code-icon">SquareCode</span>,
+  Copy: () => <span data-testid="copy-icon">Copy</span>,
+  Check: () => <span data-testid="check-icon">Check</span>,
 }));
 
 // Mock ColorPicker and FontSelector components
@@ -78,6 +83,13 @@ describe('FormattingToolbar', () => {
       unsetHighlight: vi.fn().mockReturnThis(),
       setMark: vi.fn().mockReturnThis(),
       unsetMark: vi.fn().mockReturnThis(),
+      toggleBlockquote: vi.fn().mockReturnThis(),
+      toggleCode: vi.fn().mockReturnThis(),
+      togglePreformatted: vi.fn().mockReturnThis(),
+      toggleCodeBlock: vi.fn().mockReturnThis(),
+      updateCodeBlockLanguage: vi.fn().mockReturnThis(),
+      setNodeSelection: vi.fn().mockReturnThis(),
+      updateAttributes: vi.fn().mockReturnThis(),
       run: vi.fn(() => true),
     };
 
@@ -97,6 +109,10 @@ describe('FormattingToolbar', () => {
         sinkListItem: vi.fn(() => true),
         liftListItem: vi.fn(() => true),
         setTextAlign: vi.fn(() => true),
+        toggleBlockquote: vi.fn(() => true),
+        toggleCode: vi.fn(() => true),
+        togglePreformatted: vi.fn(() => true),
+        toggleCodeBlock: vi.fn(() => true),
       })) as any,
       isActive: vi.fn((format: string) => {
         // Mock some formats as active for testing

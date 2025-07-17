@@ -29,8 +29,13 @@ vi.mock('lucide-preact', () => ({
   AlignRight: () => <span data-testid="align-right-icon">AlignRight</span>,
   AlignJustify: () => <span data-testid="align-justify-icon">AlignJustify</span>,
   Upload: () => <span data-testid="upload-icon">Upload</span>,
-  Link: () => <span data-testid="link-icon">Link</span>,
   X: () => <span data-testid="x-icon">X</span>,
+  Quote: () => <span data-testid="quote-icon">Quote</span>,
+  Code: () => <span data-testid="code-icon">Code</span>,
+  FileText: () => <span data-testid="file-text-icon">FileText</span>,
+  SquareCode: () => <span data-testid="square-code-icon">SquareCode</span>,
+  Copy: () => <span data-testid="copy-icon">Copy</span>,
+  Check: () => <span data-testid="check-icon">Check</span>,
 }));
 
 // Mock ColorPicker and FontSelector components

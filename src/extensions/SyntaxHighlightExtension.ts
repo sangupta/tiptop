@@ -1,9 +1,11 @@
-import { Node, mergeAttributes } from '@tiptap/core';
+import { Node, mergeAttributes, NodeViewRenderer } from '@tiptap/core';
 import { Plugin, PluginKey } from '@tiptap/pm/state';
-import { Decoration, DecorationSet } from '@tiptap/pm/view';
+import { Decoration, DecorationSet, NodeView } from '@tiptap/pm/view';
 import Prism from 'prismjs';
+import { CodeBlockView } from './CodeBlockView';
 
-// Import additional languages
+// Import additional languages (in order of dependencies)
+import 'prismjs/components/prism-markup-templating';
 import 'prismjs/components/prism-javascript';
 import 'prismjs/components/prism-typescript';
 import 'prismjs/components/prism-jsx';
@@ -116,7 +118,7 @@ export const TiptopSyntaxHighlight = Node.create<SyntaxHighlightOptions>({
     ];
   },
 
-  renderHTML({ HTMLAttributes, node }) {
+  renderHTML({ HTMLAttributes }) {
     return [
       'pre',
       mergeAttributes(this.options.HTMLAttributes, HTMLAttributes),
@@ -155,12 +157,18 @@ export const TiptopSyntaxHighlight = Node.create<SyntaxHighlightOptions>({
     };
   },
 
+  addNodeView() {
+    return ({ node, editor, getPos }) => {
+      return new CodeBlockView(node, editor.view, getPos as () => number, editor);
+    };
+  },
+  
   addProseMirrorPlugins() {
     return [
       new Plugin({
         key: new PluginKey('syntaxHighlighting'),
         props: {
-          decorations: ({ doc, name }) => {
+          decorations: ({ doc }) => {
             const decorations: Decoration[] = [];
 
             doc.descendants((node, pos) => {
@@ -176,6 +184,8 @@ export const TiptopSyntaxHighlight = Node.create<SyntaxHighlightOptions>({
               }
 
               const content = node.textContent;
+              if (!content) return;
+
               const tokens = Prism.tokenize(content, grammar);
               let offset = 0;
 
@@ -193,7 +203,7 @@ export const TiptopSyntaxHighlight = Node.create<SyntaxHighlightOptions>({
 
                   if (typeof content === 'string') {
                     decorations.push(
-                      Decoration.inline(pos + offset, pos + offset + content.length, {
+                      Decoration.inline(pos + 1 + offset, pos + 1 + offset + content.length, {
                         class: classNames.join(' '),
                       })
                     );

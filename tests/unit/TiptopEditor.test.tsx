@@ -83,6 +83,30 @@ vi.mock('@tiptap/extension-text-style', () => ({
   default: {},
 }));
 
+vi.mock('@tiptap/extension-text-align', () => ({
+  default: {
+    configure: vi.fn(() => ({})),
+  },
+}));
+
+vi.mock('@tiptap/extension-link', () => ({
+  default: {
+    configure: vi.fn(() => ({})),
+  },
+}));
+
+vi.mock('@tiptap/extension-blockquote', () => ({
+  default: {
+    configure: vi.fn(() => ({})),
+  },
+}));
+
+vi.mock('@tiptap/extension-code', () => ({
+  default: {
+    configure: vi.fn(() => ({})),
+  },
+}));
+
 // Mock the enhanced list extensions
 vi.mock('@/extensions', () => ({
   EnhancedBulletList: {
@@ -104,6 +128,13 @@ vi.mock('@/extensions', () => ({
   TiptopVideoEmbed: {
     configure: vi.fn(() => ({})),
   },
+  TiptopPreformatted: {
+    configure: vi.fn(() => ({})),
+  },
+  TiptopSyntaxHighlight: {
+    configure: vi.fn(() => ({})),
+  },
+  CodeBlockView: {},
 }));
 
 describe('TiptopEditor', () => {

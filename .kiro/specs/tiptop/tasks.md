@@ -81,7 +81,7 @@
   - Write unit tests for hyperlink features
   - _Requirements: 3.4, 3.5_
 
-- [ ] 7. Advanced Content Blocks
+- [x] 7. Advanced Content Blocks
 - [x] 7.1 Implement blockquotes and preformatted text
   - Integrate @tiptap/extension-blockquote with proper styling
   - Add preformatted text support with monospace font preservation
@@ -97,8 +97,8 @@
   - Write unit tests for syntax highlighting functionality
   - _Requirements: 5.3, 5.4_
 
-- [ ] 8. Context-Aware UI Components
-- [ ] 8.1 Create floating and bubble toolbars
+- [x] 8. Context-Aware UI Components
+- [x] 8.1 Create floating and bubble toolbars
   - Implement FloatingToolbar component that appears on text selection
   - Create BubbleMenu component for inline formatting options
   - Add context-sensitive toolbar content based on current selection
@@ -106,7 +106,7 @@
   - Write unit tests for floating toolbar functionality
   - _Requirements: 11.1, 11.2, 11.5_
 
-- [ ] 8.2 Implement contextual menus and interactions
+- [x] 8.2 Implement contextual menus and interactions
   - Create right-click context menu with selection-based options
   - Add hover interactions with quick action buttons
   - Implement slash command menu for quick content insertion

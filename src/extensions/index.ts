@@ -11,3 +11,4 @@ export { TiptopAudioEmbed } from './AudioExtension';
 export { TiptopVideoEmbed } from './VideoExtension';
 export { TiptopPreformatted } from './PreformattedExtension';
 export { TiptopSyntaxHighlight } from './SyntaxHighlightExtension';
+export { CodeBlockView } from './CodeBlockView';
