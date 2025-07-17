@@ -15,8 +15,20 @@ import Highlight from '@tiptap/extension-highlight';
 import TextStyle from '@tiptap/extension-text-style';
 import TextAlign from '@tiptap/extension-text-align';
 import Link from '@tiptap/extension-link';
+import Blockquote from '@tiptap/extension-blockquote';
+import Code from '@tiptap/extension-code';
 import { TiptopEditorProps, TiptopEditorRef } from '@/types';
-import { EnhancedBulletList, EnhancedOrderedList, EnhancedListItem, ListUtilities, EnhancedImage, TiptopAudioEmbed, TiptopVideoEmbed } from '@/extensions';
+import { 
+  EnhancedBulletList, 
+  EnhancedOrderedList, 
+  EnhancedListItem, 
+  ListUtilities, 
+  EnhancedImage, 
+  TiptopAudioEmbed, 
+  TiptopVideoEmbed,
+  TiptopPreformatted,
+  TiptopSyntaxHighlight
+} from '@/extensions';
 
 export const TiptopEditor = forwardRef<TiptopEditorRef, TiptopEditorProps>((props, ref) => {
   const {
@@ -71,6 +83,16 @@ export const TiptopEditor = forwardRef<TiptopEditorRef, TiptopEditorProps>((prop
             class: 'tiptop-link text-blue-600 dark:text-blue-400 underline hover:text-blue-800 dark:hover:text-blue-300 transition-colors',
           },
         }),
+        Blockquote.configure({
+          HTMLAttributes: {
+            class: 'tiptop-blockquote border-l-4 border-gray-300 dark:border-gray-600 pl-4 py-2 my-4 bg-gray-50 dark:bg-gray-800 italic text-gray-700 dark:text-gray-300',
+          },
+        }),
+        Code.configure({
+          HTMLAttributes: {
+            class: 'tiptop-code bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 px-1 py-0.5 rounded text-sm font-mono',
+          },
+        }),
         EnhancedBulletList.configure({
           HTMLAttributes: {
             class: 'tiptop-bullet-list',
@@ -111,6 +133,17 @@ export const TiptopEditor = forwardRef<TiptopEditorRef, TiptopEditorProps>((prop
           },
           inline: false,
           allowBase64: true,
+        }),
+        TiptopPreformatted.configure({
+          HTMLAttributes: {
+            class: 'tiptop-preformatted bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-md font-mono text-sm my-4 overflow-x-auto',
+          },
+        }),
+        TiptopSyntaxHighlight.configure({
+          HTMLAttributes: {
+            class: 'tiptop-code-block bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 p-4 rounded-md font-mono text-sm my-4 overflow-x-auto',
+          },
+          defaultLanguage: 'javascript',
         }),
       ],
       content: content,

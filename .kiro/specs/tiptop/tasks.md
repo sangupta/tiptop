@@ -82,14 +82,14 @@
   - _Requirements: 3.4, 3.5_
 
 - [ ] 7. Advanced Content Blocks
-- [ ] 7.1 Implement blockquotes and preformatted text
+- [x] 7.1 Implement blockquotes and preformatted text
   - Integrate @tiptap/extension-blockquote with proper styling
   - Add preformatted text support with monospace font preservation
   - Create toolbar controls for quote and preformatted text blocks
   - Write unit tests for blockquote and preformatted text
   - _Requirements: 5.1, 5.2_
 
-- [ ] 7.2 Add syntax-highlighted code blocks
+- [x] 7.2 Add syntax-highlighted code blocks
   - Integrate @tiptap/extension-code-block with syntax highlighting
   - Create custom TiptopSyntaxHighlight extension with multiple language support
   - Implement language selection dropdown for code blocks

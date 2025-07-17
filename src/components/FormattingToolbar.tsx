@@ -18,10 +18,15 @@ import {
   Link,
   Image,
   Music,
-  Video
+  Video,
+  Quote,
+  Code,
+  FileText,
+  SquareCode
 } from 'lucide-preact';
 import { ColorPicker } from './ColorPicker';
 import { FontSelector } from './FontSelector';
+import { LanguageSelector } from './LanguageSelector';
 import { LinkDialog } from './LinkDialog';
 import { MediaUpload } from './MediaUpload';
 
@@ -180,6 +185,37 @@ export const FormattingToolbar = ({ editor, className = '' }: FormattingToolbarP
     },
   ];
 
+  const blockButtons = [
+    {
+      icon: <Quote size={16} />,
+      title: 'Blockquote',
+      action: () => editor.chain().focus().toggleBlockquote().run(),
+      isActive: () => editor.isActive('blockquote'),
+      canExecute: () => editor.can().toggleBlockquote(),
+    },
+    {
+      icon: <Code size={16} />,
+      title: 'Inline Code',
+      action: () => editor.chain().focus().toggleCode().run(),
+      isActive: () => editor.isActive('code'),
+      canExecute: () => editor.can().toggleCode(),
+    },
+    {
+      icon: <FileText size={16} />,
+      title: 'Preformatted Text',
+      action: () => editor.chain().focus().togglePreformatted().run(),
+      isActive: () => editor.isActive('preformatted'),
+      canExecute: () => editor.can().togglePreformatted(),
+    },
+    {
+      icon: <SquareCode size={16} />,
+      title: 'Code Block',
+      action: () => editor.chain().focus().toggleCodeBlock().run(),
+      isActive: () => editor.isActive('codeBlock'),
+      canExecute: () => editor.can().toggleCodeBlock(),
+    },
+  ];
+
   const handleTextColorChange = (color: string) => {
     if (color) {
       editor.chain().focus().setColor(color).run();
@@ -226,6 +262,14 @@ export const FormattingToolbar = ({ editor, className = '' }: FormattingToolbarP
 
   const getCurrentFontSize = () => {
     return editor?.getAttributes('textStyle')?.fontSize || '';
+  };
+
+  const getCurrentCodeLanguage = () => {
+    return editor?.getAttributes('codeBlock')?.language || 'javascript';
+  };
+
+  const handleCodeLanguageChange = (language: string) => {
+    editor.chain().focus().updateCodeBlockLanguage(language).run();
   };
 
   const handleLinkClick = () => {
@@ -316,6 +360,24 @@ export const FormattingToolbar = ({ editor, className = '' }: FormattingToolbarP
       {/* Separator */}
       <div className="w-px h-6 bg-gray-300 dark:bg-gray-600" />
 
+      {/* Block buttons */}
+      <div className="flex items-center gap-1">
+        {blockButtons.map((button) => (
+          <ToolbarButton
+            key={button.title}
+            onClick={button.action}
+            isActive={button.isActive()}
+            disabled={!button.canExecute()}
+            title={button.title}
+          >
+            {button.icon}
+          </ToolbarButton>
+        ))}
+      </div>
+
+      {/* Separator */}
+      <div className="w-px h-6 bg-gray-300 dark:bg-gray-600" />
+
       {/* Media buttons */}
       <div className="flex items-center gap-1">
         {/* Link button */}
@@ -372,6 +434,18 @@ export const FormattingToolbar = ({ editor, className = '' }: FormattingToolbarP
 
       {/* Separator */}
       <div className="w-px h-6 bg-gray-300 dark:bg-gray-600" />
+
+      {/* Code language selector (only shown when a code block is active) */}
+      {editor.isActive('codeBlock') && (
+        <>
+          <div className="w-px h-6 bg-gray-300 dark:bg-gray-600" />
+          <LanguageSelector
+            editor={editor}
+            currentLanguage={getCurrentCodeLanguage()}
+            onLanguageChange={handleCodeLanguageChange}
+          />
+        </>
+      )}
 
       {/* Color controls */}
       <div className="flex items-center gap-2">

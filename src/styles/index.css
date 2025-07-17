@@ -316,6 +316,231 @@ body {
   border-radius: 2px;
 }
 
+/* Blockquote styles */
+.tiptop-blockquote {
+  border-left: 4px solid rgb(209 213 219);
+  padding-left: 1rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  background-color: rgb(249 250 251);
+  font-style: italic;
+  color: rgb(55 65 81);
+}
+
+.dark .tiptop-blockquote {
+  border-left-color: rgb(75 85 99);
+  background-color: rgb(31 41 55);
+  color: rgb(209 213 219);
+}
+
+.tiptop-blockquote.ProseMirror-selectednode {
+  outline: 2px solid rgb(59 130 246);
+  outline-offset: 2px;
+}
+
+/* Preformatted text styles */
+.tiptop-preformatted {
+  background-color: rgb(243 244 246);
+  color: rgb(31 41 55);
+  padding: 1rem;
+  border-radius: 0.375rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  overflow-x: auto;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid rgb(229 231 235);
+}
+
+.dark .tiptop-preformatted {
+  background-color: rgb(31 41 55);
+  color: rgb(229 231 235);
+  border-color: rgb(75 85 99);
+}
+
+.tiptop-preformatted.ProseMirror-selectednode {
+  outline: 2px solid rgb(59 130 246);
+  outline-offset: 2px;
+}
+
+/* Inline code styles */
+.tiptop-code {
+  background-color: rgb(243 244 246);
+  color: rgb(31 41 55);
+  padding: 0.125rem 0.25rem;
+  border-radius: 0.25rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.875em;
+  white-space: pre-wrap;
+  border: 1px solid rgb(229 231 235);
+}
+
+.dark .tiptop-code {
+  background-color: rgb(31 41 55);
+  color: rgb(229 231 235);
+  border-color: rgb(75 85 99);
+}
+
+/* Code block styles */
+.tiptop-code-block {
+  background-color: rgb(243 244 246);
+  color: rgb(31 41 55);
+  padding: 1rem;
+  border-radius: 0.375rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  overflow-x: auto;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid rgb(229 231 235);
+}
+
+.dark .tiptop-code-block {
+  background-color: rgb(31 41 55);
+  color: rgb(229 231 235);
+  border-color: rgb(75 85 99);
+}
+
+.tiptop-code-block.ProseMirror-selectednode {
+  outline: 2px solid rgb(59 130 246);
+  outline-offset: 2px;
+}
+
+/* Syntax highlighting styles */
+.tiptop-code-block .token.comment,
+.tiptop-code-block .token.prolog,
+.tiptop-code-block .token.doctype,
+.tiptop-code-block .token.cdata {
+  color: rgb(107 114 128); /* gray-500 */
+}
+
+.tiptop-code-block .token.punctuation {
+  color: rgb(75 85 99); /* gray-600 */
+}
+
+.tiptop-code-block .token.namespace {
+  opacity: 0.7;
+}
+
+.tiptop-code-block .token.property,
+.tiptop-code-block .token.tag,
+.tiptop-code-block .token.boolean,
+.tiptop-code-block .token.number,
+.tiptop-code-block .token.constant,
+.tiptop-code-block .token.symbol,
+.tiptop-code-block .token.deleted {
+  color: rgb(220 38 38); /* red-600 */
+}
+
+.tiptop-code-block .token.selector,
+.tiptop-code-block .token.attr-name,
+.tiptop-code-block .token.string,
+.tiptop-code-block .token.char,
+.tiptop-code-block .token.builtin,
+.tiptop-code-block .token.inserted {
+  color: rgb(22 163 74); /* green-600 */
+}
+
+.tiptop-code-block .token.operator,
+.tiptop-code-block .token.entity,
+.tiptop-code-block .token.url,
+.tiptop-code-block .language-css .token.string,
+.tiptop-code-block .style .token.string {
+  color: rgb(217 119 6); /* amber-600 */
+}
+
+.tiptop-code-block .token.atrule,
+.tiptop-code-block .token.attr-value,
+.tiptop-code-block .token.keyword {
+  color: rgb(37 99 235); /* blue-600 */
+}
+
+.tiptop-code-block .token.function,
+.tiptop-code-block .token.class-name {
+  color: rgb(147 51 234); /* purple-600 */
+}
+
+.tiptop-code-block .token.regex,
+.tiptop-code-block .token.important,
+.tiptop-code-block .token.variable {
+  color: rgb(236 72 153); /* pink-500 */
+}
+
+.tiptop-code-block .token.important,
+.tiptop-code-block .token.bold {
+  font-weight: bold;
+}
+
+.tiptop-code-block .token.italic {
+  font-style: italic;
+}
+
+.tiptop-code-block .token.entity {
+  cursor: help;
+}
+
+/* Dark mode syntax highlighting */
+.dark .tiptop-code-block .token.comment,
+.dark .tiptop-code-block .token.prolog,
+.dark .tiptop-code-block .token.doctype,
+.dark .tiptop-code-block .token.cdata {
+  color: rgb(156 163 175); /* gray-400 */
+}
+
+.dark .tiptop-code-block .token.punctuation {
+  color: rgb(209 213 219); /* gray-300 */
+}
+
+.dark .tiptop-code-block .token.property,
+.dark .tiptop-code-block .token.tag,
+.dark .tiptop-code-block .token.boolean,
+.dark .tiptop-code-block .token.number,
+.dark .tiptop-code-block .token.constant,
+.dark .tiptop-code-block .token.symbol,
+.dark .tiptop-code-block .token.deleted {
+  color: rgb(248 113 113); /* red-400 */
+}
+
+.dark .tiptop-code-block .token.selector,
+.dark .tiptop-code-block .token.attr-name,
+.dark .tiptop-code-block .token.string,
+.dark .tiptop-code-block .token.char,
+.dark .tiptop-code-block .token.builtin,
+.dark .tiptop-code-block .token.inserted {
+  color: rgb(74 222 128); /* green-400 */
+}
+
+.dark .tiptop-code-block .token.operator,
+.dark .tiptop-code-block .token.entity,
+.dark .tiptop-code-block .token.url,
+.dark .tiptop-code-block .language-css .token.string,
+.dark .tiptop-code-block .style .token.string {
+  color: rgb(251 191 36); /* amber-400 */
+}
+
+.dark .tiptop-code-block .token.atrule,
+.dark .tiptop-code-block .token.attr-value,
+.dark .tiptop-code-block .token.keyword {
+  color: rgb(96 165 250); /* blue-400 */
+}
+
+.dark .tiptop-code-block .token.function,
+.dark .tiptop-code-block .token.class-name {
+  color: rgb(192 132 252); /* purple-400 */
+}
+
+.dark .tiptop-code-block .token.regex,
+.dark .tiptop-code-block .token.important,
+.dark .tiptop-code-block .token.variable {
+  color: rgb(244 114 182); /* pink-400 */
+}
+
 /* Utility styles */
 .tiptop-fade-in {
   animation: fadeIn 0.2s ease-in-out;
