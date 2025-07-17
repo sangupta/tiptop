@@ -15,11 +15,15 @@ import {
   AlignCenter,
   AlignRight,
   AlignJustify,
-  Link
+  Link,
+  Image,
+  Music,
+  Video
 } from 'lucide-preact';
 import { ColorPicker } from './ColorPicker';
 import { FontSelector } from './FontSelector';
 import { LinkDialog } from './LinkDialog';
+import { MediaUpload } from './MediaUpload';
 
 interface FormattingToolbarProps {
   editor: Editor | null;
@@ -58,6 +62,9 @@ const ToolbarButton = ({ onClick, isActive, disabled, children, title }: Toolbar
 
 export const FormattingToolbar = ({ editor, className = '' }: FormattingToolbarProps) => {
   const [isLinkDialogOpen, setIsLinkDialogOpen] = useState(false);
+  const [isImageDialogOpen, setIsImageDialogOpen] = useState(false);
+  const [isAudioDialogOpen, setIsAudioDialogOpen] = useState(false);
+  const [isVideoDialogOpen, setIsVideoDialogOpen] = useState(false);
 
   if (!editor) {
     return null;
@@ -309,15 +316,48 @@ export const FormattingToolbar = ({ editor, className = '' }: FormattingToolbarP
       {/* Separator */}
       <div className="w-px h-6 bg-gray-300 dark:bg-gray-600" />
 
-      {/* Link button */}
-      <ToolbarButton
-        onClick={handleLinkClick}
-        isActive={editor?.isActive('link') || false}
-        disabled={false}
-        title="Add Link"
-      >
-        <Link size={16} />
-      </ToolbarButton>
+      {/* Media buttons */}
+      <div className="flex items-center gap-1">
+        {/* Link button */}
+        <ToolbarButton
+          onClick={handleLinkClick}
+          isActive={editor?.isActive('link') || false}
+          disabled={false}
+          title="Add Link"
+        >
+          <Link size={16} />
+        </ToolbarButton>
+        
+        {/* Image button */}
+        <ToolbarButton
+          onClick={() => setIsImageDialogOpen(true)}
+          isActive={editor?.isActive('image') || false}
+          disabled={false}
+          title="Add Image"
+        >
+          <Image size={16} />
+        </ToolbarButton>
+        
+        {/* Audio button */}
+        <ToolbarButton
+          onClick={() => setIsAudioDialogOpen(true)}
+          isActive={editor?.isActive('audio') || false}
+          disabled={false}
+          title="Add Audio"
+        >
+          <Music size={16} />
+        </ToolbarButton>
+        
+        {/* Video button */}
+        <ToolbarButton
+          onClick={() => setIsVideoDialogOpen(true)}
+          isActive={editor?.isActive('video') || false}
+          disabled={false}
+          title="Add Video"
+        >
+          <Video size={16} />
+        </ToolbarButton>
+      </div>
 
       {/* Separator */}
       <div className="w-px h-6 bg-gray-300 dark:bg-gray-600" />
@@ -354,6 +394,75 @@ export const FormattingToolbar = ({ editor, className = '' }: FormattingToolbarP
         onClose={() => setIsLinkDialogOpen(false)}
         initialUrl={getCurrentLinkUrl()}
         initialText={getSelectedText()}
+      />
+
+      {/* Image Upload Dialog */}
+      <MediaUpload
+        type="image"
+        isOpen={isImageDialogOpen}
+        onClose={() => setIsImageDialogOpen(false)}
+        onUpload={(file) => {
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            if (e.target?.result) {
+              editor.chain().focus().setImage({ src: e.target.result as string }).run();
+            }
+          };
+          reader.readAsDataURL(file);
+        }}
+        onUrlInsert={(url, title) => {
+          editor.chain().focus().setImage({ src: url, alt: title || '' }).run();
+        }}
+      />
+
+      {/* Audio Upload Dialog */}
+      <MediaUpload
+        type="audio"
+        isOpen={isAudioDialogOpen}
+        onClose={() => setIsAudioDialogOpen(false)}
+        onUpload={(file) => {
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            if (e.target?.result) {
+              editor.chain().focus().insertContent({
+                type: 'audio',
+                attrs: { src: e.target.result as string, controls: true }
+              }).run();
+            }
+          };
+          reader.readAsDataURL(file);
+        }}
+        onUrlInsert={(url, title) => {
+          editor.chain().focus().insertContent({
+            type: 'audio',
+            attrs: { src: url, controls: true, title: title || '' }
+          }).run();
+        }}
+      />
+
+      {/* Video Upload Dialog */}
+      <MediaUpload
+        type="video"
+        isOpen={isVideoDialogOpen}
+        onClose={() => setIsVideoDialogOpen(false)}
+        onUpload={(file) => {
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            if (e.target?.result) {
+              editor.chain().focus().insertContent({
+                type: 'video',
+                attrs: { src: e.target.result as string, controls: true }
+              }).run();
+            }
+          };
+          reader.readAsDataURL(file);
+        }}
+        onUrlInsert={(url, title) => {
+          editor.chain().focus().insertContent({
+            type: 'video',
+            attrs: { src: url, controls: true, title: title || '' }
+          }).run();
+        }}
       />
     </div>
   );

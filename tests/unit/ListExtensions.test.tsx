@@ -39,6 +39,10 @@ vi.mock('lucide-preact', () => ({
   AlignJustify: () => <span data-testid="align-justify-icon">AlignJustify</span>,
   Upload: () => <span data-testid="upload-icon">Upload</span>,
   Link: () => <span data-testid="link-icon">Link</span>,
+  Image: () => <span data-testid="image-icon">Image</span>,
+  Music: () => <span data-testid="music-icon">Music</span>,
+  Video: () => <span data-testid="video-icon">Video</span>,
+  Link: () => <span data-testid="link-icon">Link</span>,
   X: () => <span data-testid="x-icon">X</span>,
 }));
 

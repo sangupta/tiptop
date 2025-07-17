@@ -56,7 +56,7 @@
   - Write unit tests for text alignment functionality
   - _Requirements: 4.1, 4.2, 4.3, 4.4_
 
-- [ ] 6. Media Integration Foundation
+- [x] 6. Media Integration Foundation
 - [x] 6.1 Implement image support
   - Integrate @tiptap/extension-image with drag-and-drop, file upload, and URL insertion
   - Create image insertion dialog with multiple input methods

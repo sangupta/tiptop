@@ -2,7 +2,7 @@ import { useState, useRef } from 'preact/hooks';
 import { Upload, Link, X } from 'lucide-preact';
 
 export interface MediaUploadProps {
-  type: 'audio' | 'video';
+  type: 'audio' | 'video' | 'image';
   onUpload: (file: File) => void;
   onUrlInsert: (url: string, title?: string) => void;
   onClose: () => void;
@@ -18,9 +18,10 @@ export const MediaUpload = ({ type, onUpload, onUrlInsert, onClose, isOpen }: Me
 
   if (!isOpen) return null;
 
-  const acceptedTypes = type === 'audio' 
-    ? 'audio/*,.mp3,.wav,.ogg,.m4a,.aac'
-    : 'video/*,.mp4,.webm,.ogg,.mov,.avi';
+  const acceptedTypes =
+    type === 'audio' ? 'audio/*,.mp3,.wav,.ogg,.m4a,.aac' :
+      type === 'video' ? 'video/*,.mp4,.webm,.ogg,.mov,.avi' :
+        'image/*,.jpg,.jpeg,.png,.gif,.webp,.svg';
 
   const handleFileSelect = (files: FileList | null) => {
     if (files && files.length > 0) {
@@ -33,10 +34,16 @@ export const MediaUpload = ({ type, onUpload, onUrlInsert, onClose, isOpen }: Me
   };
 
   const validateFile = (file: File): boolean => {
-    const isValidType = type === 'audio' 
-      ? file.type.startsWith('audio/')
-      : file.type.startsWith('video/');
-    
+    let isValidType = false;
+
+    if (type === 'audio') {
+      isValidType = file.type.startsWith('audio/');
+    } else if (type === 'video') {
+      isValidType = file.type.startsWith('video/');
+    } else if (type === 'image') {
+      isValidType = file.type.startsWith('image/');
+    }
+
     if (!isValidType) {
       alert(`Please select a valid ${type} file.`);
       return false;
@@ -83,7 +90,7 @@ export const MediaUpload = ({ type, onUpload, onUrlInsert, onClose, isOpen }: Me
       <div className="bg-white dark:bg-gray-800 rounded-lg p-6 w-full max-w-md mx-4">
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-            Insert {type === 'audio' ? 'Audio' : 'Video'}
+            Insert {type === 'audio' ? 'Audio' : type === 'video' ? 'Video' : 'Image'}
           </h3>
           <button
             onClick={onClose}
@@ -97,22 +104,20 @@ export const MediaUpload = ({ type, onUpload, onUrlInsert, onClose, isOpen }: Me
         <div className="flex border-b border-gray-200 dark:border-gray-700 mb-4">
           <button
             onClick={() => setActiveTab('upload')}
-            className={`px-4 py-2 text-sm font-medium ${
-              activeTab === 'upload'
-                ? 'text-primary-600 border-b-2 border-primary-600'
-                : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300'
-            }`}
+            className={`px-4 py-2 text-sm font-medium ${activeTab === 'upload'
+              ? 'text-primary-600 border-b-2 border-primary-600'
+              : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300'
+              }`}
             data-testid="upload-tab"
           >
             Upload File
           </button>
           <button
             onClick={() => setActiveTab('url')}
-            className={`px-4 py-2 text-sm font-medium ${
-              activeTab === 'url'
-                ? 'text-primary-600 border-b-2 border-primary-600'
-                : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300'
-            }`}
+            className={`px-4 py-2 text-sm font-medium ${activeTab === 'url'
+              ? 'text-primary-600 border-b-2 border-primary-600'
+              : 'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300'
+              }`}
             data-testid="url-tab"
           >
             From URL
@@ -122,11 +127,10 @@ export const MediaUpload = ({ type, onUpload, onUrlInsert, onClose, isOpen }: Me
         {activeTab === 'upload' && (
           <div>
             <div
-              className={`border-2 border-dashed rounded-lg p-8 text-center transition-colors ${
-                isDragOver
-                  ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20'
-                  : 'border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500'
-              }`}
+              className={`border-2 border-dashed rounded-lg p-8 text-center transition-colors ${isDragOver
+                ? 'border-primary-500 bg-primary-50 dark:bg-primary-900/20'
+                : 'border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500'
+                }`}
               onDrop={handleDrop}
               onDragOver={handleDragOver}
               onDragLeave={handleDragLeave}
@@ -144,7 +148,11 @@ export const MediaUpload = ({ type, onUpload, onUrlInsert, onClose, isOpen }: Me
                 browse files
               </button>
               <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
-                Supported formats: {type === 'audio' ? 'MP3, WAV, OGG, M4A, AAC' : 'MP4, WebM, OGG, MOV, AVI'}
+                Supported formats: {
+                  type === 'audio' ? 'MP3, WAV, OGG, M4A, AAC' :
+                    type === 'video' ? 'MP4, WebM, OGG, MOV, AVI' :
+                      'JPG, JPEG, PNG, GIF, WebP, SVG'
+                }
                 <br />
                 Maximum size: 100MB
               </p>
@@ -164,7 +172,7 @@ export const MediaUpload = ({ type, onUpload, onUrlInsert, onClose, isOpen }: Me
           <form onSubmit={handleUrlSubmit} data-testid="url-form">
             <div className="mb-4">
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                {type === 'audio' ? 'Audio' : 'Video'} URL
+                {type === 'audio' ? 'Audio' : type === 'video' ? 'Video' : 'Image'} URL
               </label>
               <div className="relative">
                 <Link className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={16} />
@@ -206,7 +214,7 @@ export const MediaUpload = ({ type, onUpload, onUrlInsert, onClose, isOpen }: Me
                 className="px-4 py-2 text-sm font-medium text-white bg-primary-600 hover:bg-primary-700 rounded-md"
                 data-testid="insert-button"
               >
-                Insert {type === 'audio' ? 'Audio' : 'Video'}
+                Insert {type === 'audio' ? 'Audio' : type === 'video' ? 'Video' : 'Image'}
               </button>
             </div>
           </form>
