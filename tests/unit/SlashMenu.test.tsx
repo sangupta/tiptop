@@ -23,7 +23,7 @@ vi.mock('lucide-preact', () => ({
   Heading1: () => <span data-testid="heading1-icon">Heading1</span>,
   Heading2: () => <span data-testid="heading2-icon">Heading2</span>,
   Heading3: () => <span data-testid="heading3-icon">Heading3</span>,
-  HorizontalRule: () => <span data-testid="horizontal-rule-icon">HorizontalRule</span>,
+  SeparatorHorizontal: () => <span data-testid="horizontal-rule-icon">SeparatorHorizontal</span>,
   Search: () => <span data-testid="search-icon">Search</span>,
 }));
 

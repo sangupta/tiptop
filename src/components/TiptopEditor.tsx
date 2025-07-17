@@ -17,6 +17,8 @@ import TextAlign from '@tiptap/extension-text-align';
 import Link from '@tiptap/extension-link';
 import Blockquote from '@tiptap/extension-blockquote';
 import Code from '@tiptap/extension-code';
+import Heading from '@tiptap/extension-heading';
+import HorizontalRule from '@tiptap/extension-horizontal-rule';
 import { TiptopEditorProps, TiptopEditorRef } from '@/types';
 import { 
   EnhancedBulletList, 
@@ -75,6 +77,17 @@ export const TiptopEditor = forwardRef<TiptopEditorRef, TiptopEditorProps>((prop
         }),
         Highlight.configure({
           multicolor: true,
+        }),
+        Heading.configure({
+          levels: [1, 2, 3],
+          HTMLAttributes: {
+            class: 'tiptop-heading',
+          },
+        }),
+        HorizontalRule.configure({
+          HTMLAttributes: {
+            class: 'tiptop-horizontal-rule border-t-2 border-gray-300 dark:border-gray-600 my-6',
+          },
         }),
         TextAlign.configure({
           types: ['heading', 'paragraph'],

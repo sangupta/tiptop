@@ -19,7 +19,7 @@ import {
   Heading1,
   Heading2,
   Heading3,
-  HorizontalRule,
+  SeparatorHorizontal,
   Search
 } from 'lucide-preact';
 
@@ -205,7 +205,7 @@ export const SlashMenu = ({ editor, className = '' }: SlashMenuProps) => {
     {
       title: 'Horizontal Rule',
       description: 'Add a horizontal divider.',
-      icon: <HorizontalRule size={14} />,
+      icon: <SeparatorHorizontal size={14} />,
       command: (editor) => {
         editor.chain().focus().setHorizontalRule().run();
       },
@@ -323,6 +323,12 @@ export const SlashMenu = ({ editor, className = '' }: SlashMenuProps) => {
       }
     };
 
+    const handleClickOutside = (event: MouseEvent) => {
+      if (isVisible && menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setIsVisible(false);
+      }
+    };
+
     const handleKeyDown = (event: KeyboardEvent) => {
       if (!isVisible) return;
       
@@ -365,10 +371,12 @@ export const SlashMenu = ({ editor, className = '' }: SlashMenuProps) => {
     // Add event listeners
     editor.on('update', checkForSlashCommand);
     document.addEventListener('keydown', handleKeyDown);
+    document.addEventListener('mousedown', handleClickOutside);
 
     return () => {
       editor.off('update', checkForSlashCommand);
       document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [editor, isVisible, filteredCommands, selectedIndex]);
 
